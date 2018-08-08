@@ -1,0 +1,19 @@
+{
+  "presets": [
+    ["env", { "modules": false }],
+    "react"
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        ["react-css-modules", { "generateScopedName": "[name]__[local]"}],
+        "react-hot-loader/babel"
+      ]
+    },
+    "production": {
+      "plugins": [
+        ["react-css-modules", { "generateScopedName": "[hash:base64:6]"}]
+      ]
+    }
+  }
+}

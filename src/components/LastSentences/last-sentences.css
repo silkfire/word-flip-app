@@ -1,0 +1,23 @@
+.container {
+    margin: 24px auto 0;
+}
+
+.sentence {
+    padding: 12px 10px;
+    border-bottom: 1px solid #d4d4d4;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.sentence:last-child {
+    border-bottom: none;
+}
+
+
+@media only screen and (min-width: 48em) {
+    .sentence {
+        padding: 15px 0;
+        border-bottom: 1px solid #f0edea;
+    }
+}
+

@@ -1,0 +1,28 @@
+version: "3"
+services:
+    server:
+        build:
+          context: .
+          dockerfile: word-flip-app/Dockerfile
+        image: silkfire/word-flip-app:1.0
+        container_name: server
+        ports:
+            - "3000:3000"
+        depends_on:
+            - api
+    api:
+        build:
+          context: .
+          dockerfile: WordFlip.Api/Dockerfile-api
+        image: silkfire/word-flip-api:1.0
+        container_name: api
+        ports:
+            - "8080:8080"
+        depends_on:
+            - db
+    db:
+        build:
+          context: .
+          dockerfile: WordFlip.Api/Dockerfile-db
+        image: silkfire/word-flip-api-db:1.0
+        container_name: db

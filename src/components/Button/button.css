@@ -1,0 +1,15 @@
+.default {
+    background-color: #f2625a;
+    transition: all 0.5s;
+    cursor: pointer;
+    text-align: center;
+    color: #fff;
+    padding: 7px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    float: right;
+}
+
+.default:hover {
+    background-color: #dd483f;
+}

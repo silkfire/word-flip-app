@@ -1,0 +1,16 @@
+.default {
+    resize: none;
+    outline: none;
+    -webkit-appearance: none;
+
+    width: 100%;
+
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 5px;
+    border: 1px solid #eaeaea;
+    margin: 50px auto 0;
+}
+
+.default::placeholder {
+    color: #c7c7c7;
+}
