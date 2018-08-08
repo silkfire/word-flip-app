@@ -36,7 +36,7 @@ COPY --from=builder /root/dist ./dist
 
 
 # Set production mode
-# ENV NODE_ENV=production
+ENV NODE_ENV=production
 
 # Expose a default port
 EXPOSE 3000

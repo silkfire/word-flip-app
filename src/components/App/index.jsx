@@ -35,7 +35,7 @@ class App extends Component {
   }
 
   getLastSentences() {
-    getLastSentences().then(data => this.setState({sentences: data, maxLastSentenceCount: data.length}));
+    getLastSentences().then(data => this.setState({lastSentences: data, maxLastSentenceCount: data.length}));
   }
 
 

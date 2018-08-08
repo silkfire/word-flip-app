@@ -14,5 +14,5 @@ const server = app.listen(process.env.PORT || 3000, function() {
     const address = server.address();
 
     console.log('App listening at http://%s:%s', address.address, address.port);
-    console.log(process.env);
+    // console.log(process.env);
 });
