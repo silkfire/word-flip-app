@@ -1,14 +1,16 @@
 // https://github.com/wesbos/Learn-Redux-Starter-Files/blob/master/learn-redux/devServer.js
 
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const app = express();
-const path = require('path');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackConfig = require('./webpack.dev.js');
 const compiler = webpack(webpackConfig);
+
+const { getLastSentences, flip } = require('./apiMethods.js');
 
 
 app.use(webpackDevMiddleware(compiler, {
@@ -16,6 +18,27 @@ app.use(webpackDevMiddleware(compiler, {
 }));
 
 app.use(webpackHotMiddleware(compiler));
+
+
+
+//// API METHODS 
+
+app.use(bodyParser.json());
+
+
+const createResponse = (expressResponse) => (error, response, body) => expressResponse.json({
+                                                                                              error: error && error.message || response.statusCode != 200 && (body[''] || body.error || 'Operation failed.'),
+                                                                                              body: response.statusCode == 200 && JSON.stringify(body)
+                                                                                            });
+
+app.get('/getLastSentences', (req, res) => getLastSentences(createResponse(res)));
+
+app.post('/flip', (req, res) => flip(req.body, createResponse(res)));
+
+//////
+
+
+
 
 const server = app.listen(3000, function() {
     const address = server.address();
