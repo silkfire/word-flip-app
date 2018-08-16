@@ -1,7 +1,6 @@
 .default {
     background-color: #f2625a;
-    transition: all 0.5s;
-    cursor: pointer;
+    transition: all 0.3s;
     text-align: center;
     color: #fff;
     padding: 7px;
@@ -10,6 +9,11 @@
     float: right;
 }
 
-.default:hover {
+.default:not(.disabled):hover {
     background-color: #dd483f;
+    cursor: pointer;
+}
+
+.disabled {
+    background-color: #c3c3c3;
 }

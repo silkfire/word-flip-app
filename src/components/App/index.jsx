@@ -9,10 +9,7 @@ import LastSentences from '../LastSentences/index.jsx';
 import './app.css';
 
 
-// const flipAndGetLastSentences = () => {
-//     flip
-// }
-
+const maxLastSentenceCount = 5;
 
 class App extends Component {
   constructor() {
@@ -20,8 +17,8 @@ class App extends Component {
 
     this.state = {
       originalSentence: '',
-      lastSentences: [],
-      maxLastSentenceCount: 0
+      errorMessage: false,
+      lastSentences: []
     };
   }
 
@@ -30,13 +27,15 @@ class App extends Component {
     this.setState({originalSentence: value});
   }
   
+
+  getLastSentences() {
+    getLastSentences().then(data => this.setState({errorMessage: data.error,  lastSentences: data.body && JSON.parse(data.body).slice(0, maxLastSentenceCount + 1) || [] }));
+  }
+
   flip() {
     flip(this.state.originalSentence).then(() => this.getLastSentences());
   }
 
-  getLastSentences() {
-    getLastSentences().then(data => this.setState({lastSentences: data, maxLastSentenceCount: data.length}));
-  }
 
 
 
@@ -46,10 +45,11 @@ class App extends Component {
           <OriginalSentence onChange={this.onOriginalSentenceChange.bind(this)}/>
 
           <div styleName="button-container">
-              <Button text="Flip" style={{ marginTop: '12px', width: '80px' }} onClick={this.flip.bind(this)}/>
+              <div styleName="error-message">{!!this.state.errorMessage && `Error: ${this.state.errorMessage}`}</div>
+              <Button text="Flip" style={{ marginTop: '12px', width: '80px' }} onClick={this.flip.bind(this)} disabled={this.state.originalSentence.trim().length == 0} />
           </div>
 
-          <LastSentences getLastSentences={this.getLastSentences.bind(this)} sentences={this.state.lastSentences.slice(0, this.state.maxLastSentenceCount)} />
+          <LastSentences getLastSentences={this.getLastSentences.bind(this)} sentences={this.state.lastSentences} />
       </div>
     );
   }

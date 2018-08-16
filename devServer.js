@@ -27,8 +27,8 @@ app.use(bodyParser.json());
 
 
 const createResponse = (expressResponse) => (error, response, body) => expressResponse.json({
-                                                                                              error: error && error.message || response.statusCode != 200 && (body[''] || body.error || 'Operation failed.'),
-                                                                                              body: response.statusCode == 200 && JSON.stringify(body)
+                                                                                              error: error && 'Failed to connect to the  WebFlip API.' || response.statusCode != 200 && (body[''] || body.error || 'Operation failed.'),
+                                                                                              body:  response && response.statusCode == 200 && body
                                                                                             });
 
 app.get('/getLastSentences', (req, res) => getLastSentences(createResponse(res)));

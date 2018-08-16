@@ -1,2 +1,2 @@
-export const getLastSentences = () => fetch(`${process.env.API_URL}/api/flip/getLastSentences`).then(r => r.json());
-export const flip = (originalSentence) => fetch(`${process.env.API_URL}/api/flip`, { method: 'post', body: JSON.stringify({ originalSentence }), headers: { 'Content-Type': 'application/json' }}).then(r => r.json());
+export const getLastSentences = () => fetch('/getLastSentences').then(r => r.json());
+export const flip = (originalSentence) => fetch('/flip', { method: 'post', body: JSON.stringify({ originalSentence }), headers: { 'Content-Type': 'application/json' }}).then(r => r.json());

@@ -27,7 +27,7 @@ module.exports = {
     new CleanWebpackPlugin(['dist']),
     
     // Load environment variables from .env
-    new dotenv()
+    // new dotenv()
   ],
   resolve: {
     alias: {
