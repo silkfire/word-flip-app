@@ -1,7 +1,6 @@
 .container {
     margin: 0 auto;
     width: 100%;
-    padding: 0 4px;
     text-align: center;
 }
 
@@ -10,6 +9,12 @@
         width: 800px;
     }
 }
+
+
+.input-container {
+    padding: 0 4px;
+}
+
 
 .button-container {
     overflow: hidden;

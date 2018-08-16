@@ -29,7 +29,7 @@ COPY --from=builder /root/package*.json ./
 RUN npm install --only=production
 
 # Copy the server files to the new image
-COPY --from=builder /root/server.js .
+COPY --from=builder /root/server.js /root/apiMethods.js ./
 
 # Copy the compiled files to the new image
 COPY --from=builder /root/dist ./dist
@@ -37,6 +37,7 @@ COPY --from=builder /root/dist ./dist
 
 # Set production mode
 ENV NODE_ENV=production
+ENV API_URL=http://api
 
 # Expose a default port
 EXPOSE 3000

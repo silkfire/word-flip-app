@@ -42,11 +42,13 @@ class App extends Component {
   render() {
     return (
       <div styleName="container">
-          <OriginalSentence onChange={this.onOriginalSentenceChange.bind(this)}/>
-
-          <div styleName="button-container">
-              <div styleName="error-message">{!!this.state.errorMessage && `Error: ${this.state.errorMessage}`}</div>
-              <Button text="Flip" style={{ marginTop: '12px', width: '80px' }} onClick={this.flip.bind(this)} disabled={this.state.originalSentence.trim().length == 0} />
+          <div styleName="input-container">
+            <OriginalSentence onChange={this.onOriginalSentenceChange.bind(this)}/>
+  
+            <div styleName="button-container">
+                <div styleName="error-message">{!!this.state.errorMessage && `Error: ${this.state.errorMessage}`}</div>
+                <Button text="Flip" style={{ marginTop: '12px', width: '80px' }} onClick={this.flip.bind(this)} disabled={this.state.originalSentence.trim().length == 0} />
+            </div>
           </div>
 
           <LastSentences getLastSentences={this.getLastSentences.bind(this)} sentences={this.state.lastSentences} />
