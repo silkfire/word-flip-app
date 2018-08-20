@@ -37,9 +37,8 @@ COPY --from=builder /root/dist ./dist
 
 # Set production mode
 ENV NODE_ENV=production
-ENV API_URL=http://api
 
-# Expose a default port
+# Expose a default port for the server
 EXPOSE 3000
 
 
