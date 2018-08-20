@@ -12,48 +12,39 @@ $ git clone https://github.com/silkfire/WordFlip.Api.git
 $ git clone https://github.com/silkfire/word-flip-app.git
 ```
 
-Copy the Compose file from the client repository into the current directory:
-```
-$ cp word-flip-app/docker-compose.yml ./
-```
+The default address to the API from the app server container is `http://api:8080` but this can be tailored to suit your particular requirements in the `docker-compose.yml` file by changing the `API_URL` environment variable. 
 
-Create an `.env`file in the `word-flip-app`directory with the address of the API:
-```
-$ echo 'API_URL=localhost:8080' > './word-flip-app/.env'
-```
-This is the default address but can be tailored to suit your particular requirements. 
-
-Run the Composer to build the respective images of the web API, database and the client:
+Run the Composer to build the images of the web API, database and the client, respectively:
 
 ```
-$ docker-compose build
+$ docker-compose -f word-flip-app/docker-compose.yml build
 ```
 
 Start the containers:
 ```
-$ docker-compose up -d
+$ docker-compose -f word-flip-app/docker-compose.yml up
 ```
 
-It might be a good idea to wait around 20 seconds so that the database will have time to startup properly. 
+It might be a good idea to wait around 20 seconds so that the database gets the necessary time to start up properly. 
 
-The application is ready to be run. The default port is 3000 but this too can be adjusted as required in the Compose file by setting the environment variable `PORT`to a value of your choice.
+The application is ready to be run. The default port is `3000` but this too can be adjusted as required in the Compose file by setting the environment variable `PORT`to a value of your choice.
 
 To stop the service, run the following command:
 
 ```
-$ docker-compose stop
+$ docker-compose -f word-flip-app/docker-compose.yml stop
 ```
 
 To restart the service, run the following command:
 
 ```
-$ docker-compose start
+$ docker-compose -f word-flip-app/docker-compose.yml start
 ```
 
 To delete the containers (in case you're rebuilding the project or just would like to reset the service), run the following command:
 
 ```
-$ docker-compose down
+$ docker-compose -f word-flip-app/docker-compose.yml down
 ```
 
 ### Happy flipping!
