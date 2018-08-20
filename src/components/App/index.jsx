@@ -4,6 +4,7 @@ import { flip, getLastSentences } from '~/shared/api.js'
 
 import OriginalSentence from '../OriginalSentence/index.jsx';
 import Button from '../Button/index.jsx';
+import ErrorMessage from '../ErrorMessage/index.jsx';
 import LastSentences from '../LastSentences/index.jsx';
 
 import './app.css';
@@ -46,7 +47,7 @@ class App extends Component {
             <OriginalSentence onChange={this.onOriginalSentenceChange.bind(this)}/>
   
             <div styleName="button-container">
-                <div styleName="error-message">{!!this.state.errorMessage && `Error: ${this.state.errorMessage}`}</div>
+                <ErrorMessage message={this.state.errorMessage} />
                 <Button text="Flip" style={{ marginTop: '12px', width: '80px' }} onClick={this.flip.bind(this)} disabled={this.state.originalSentence.trim().length == 0} />
             </div>
           </div>

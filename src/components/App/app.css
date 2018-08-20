@@ -19,10 +19,3 @@
 .button-container {
     overflow: hidden;
 }
-
-.error-message {
-    color: #ff0000;
-    float: left;
-    margin: 22px 2px 0;
-    font-size: 0.9rem;
-}

@@ -20,11 +20,15 @@ app.get('/', (req, res) => {
 
 app.use(bodyParser.json());
 
+const createResponse = (expressResponse) => (error, response, body) => {
+    // console.log(error);
 
-const createResponse = (expressResponse) => (error, response, body) => expressResponse.json({
-                                                                                              error: error && 'Failed to connect to the  WebFlip API.' || response.statusCode != 200 && (body[''] || body.error || 'Operation failed.'),
-                                                                                              body:  response && response.statusCode == 200 && body
-                                                                                            });
+    return expressResponse.json({
+                                    error: error && 'Failed to connect to the  WebFlip API.' || response.statusCode != 200 && (body[''] || body.error || 'Operation failed.'),
+                                    body:  response && response.statusCode == 200 && body
+                                });
+};
+
 
 app.get('/getLastSentences', (req, res) => getLastSentences(createResponse(res)));
 
@@ -38,6 +42,8 @@ app.post('/flip', (req, res) => flip(req.body, createResponse(res)));
 const server = app.listen(process.env.PORT || 3000, function() {
     const address = server.address();
 
+    // console.log(process.env.API_URL);
+    // console.log(process.env.NODE_ENV);
+
     console.log('App listening at http://%s:%s', address.address, address.port);
-    // console.log(process.env);
 });
