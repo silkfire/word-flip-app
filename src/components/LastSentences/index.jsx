@@ -9,9 +9,11 @@ export default class LastSentences extends Component {
 
  
   render() {
+    const { sentences } = this.props;
+
     return (
       <div styleName="container">{
-          this.props.sentences.map(s => (<div key={s.id} styleName="sentence">{s.sentence}</div>))
+          sentences.map(s => (<div key={s.id} styleName="sentence">{s.sentence}</div>))
       }</div>
     );
   }

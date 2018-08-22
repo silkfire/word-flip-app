@@ -8,8 +8,10 @@ export default class ErrorMessage extends Component {
     }
 
     render() {
+        const { message } = this.props;
+
         return (
-            <div styleName="default">{!!this.props.message && `Error: ${this.props.message}`}</div>
+            <div styleName="default">{!!message && `Error: ${message}`}</div>
         );
     }
 }

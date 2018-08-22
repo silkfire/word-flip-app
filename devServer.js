@@ -26,10 +26,14 @@ app.use(webpackHotMiddleware(compiler));
 app.use(bodyParser.json());
 
 
-const createResponse = (expressResponse) => (error, response, body) => expressResponse.json({
-                                                                                              error: error && 'Failed to connect to the  WebFlip API.' || response.statusCode != 200 && (body[''] || body.error || 'Operation failed.'),
-                                                                                              body:  response && response.statusCode == 200 && body
-                                                                                            });
+const createResponse = (expressResponse) => (error, response, body) => {
+    // console.log(error);
+
+    return expressResponse.json({
+                                    error: error && 'Failed to connect to the  WebFlip API.' || response.statusCode != 200 && (body[''] || body.error || 'Operation failed.'),
+                                    body:  response && response.statusCode == 200 && body
+                                });
+};
 
 app.get('/getLastSentences', (req, res) => getLastSentences(createResponse(res)));
 

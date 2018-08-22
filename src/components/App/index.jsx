@@ -5,12 +5,12 @@ import { flip, getLastSentences } from '~/shared/api.js'
 import OriginalSentence from '../OriginalSentence/index.jsx';
 import Button from '../Button/index.jsx';
 import ErrorMessage from '../ErrorMessage/index.jsx';
+import FlippedSentence from '../FlippedSentence/index.jsx';
 import LastSentences from '../LastSentences/index.jsx';
 
 import './app.css';
 
-
-const maxLastSentenceCount = 5;
+const maxSentenceCount = process.env.MAX_SENTENCE_COUNT;
 
 class App extends Component {
   constructor() {
@@ -18,6 +18,7 @@ class App extends Component {
 
     this.state = {
       originalSentence: '',
+      flippedSentence: { sentence: '' },
       errorMessage: false,
       lastSentences: []
     };
@@ -30,29 +31,50 @@ class App extends Component {
   
 
   getLastSentences() {
-    getLastSentences().then(data => this.setState({errorMessage: data.error,  lastSentences: data.body && JSON.parse(data.body).slice(0, maxLastSentenceCount + 1) || [] }));
+    getLastSentences().then(data => this.setState({errorMessage: data.error,  lastSentences: data.body && JSON.parse(data.body).slice(0, maxSentenceCount) || [] }));
   }
 
   flip() {
-    flip(this.state.originalSentence).then(() => this.getLastSentences());
+    flip(this.state.originalSentence).then(data => {
+      const { error, body } = data;
+
+      this.setState({
+        originalSentence: body ? '' : this.state.originalSentence,
+        flippedSentence: body || this.state.flippedSentence,
+        errorMessage: error,
+        lastSentences: body && [ body, ...this.state.lastSentences].slice(0, maxSentenceCount) || this.state.lastSentences
+      });
+
+      if (body) {
+        this.originalSentenceInputNode.current.focus();
+      }
+    });
+  }
+
+  refInputNode(inputNode) {
+    this.originalSentenceInputNode = inputNode;
   }
 
 
 
 
   render() {
+    const { originalSentence, errorMessage, flippedSentence, lastSentences } = this.state;
+
     return (
       <div styleName="container">
           <div styleName="input-container">
-            <OriginalSentence onChange={this.onOriginalSentenceChange.bind(this)}/>
+            <OriginalSentence onChange={this.onOriginalSentenceChange.bind(this)} value={originalSentence} refInputNode={this.refInputNode.bind(this)} />
   
             <div styleName="button-container">
-                <ErrorMessage message={this.state.errorMessage} />
-                <Button text="Flip" style={{ marginTop: '12px', width: '80px' }} onClick={this.flip.bind(this)} disabled={this.state.originalSentence.trim().length == 0} />
+                <ErrorMessage message={errorMessage} />
+                <Button text="Flip" style={{ marginTop: '12px', width: '80px' }} onClick={this.flip.bind(this)} disabled={originalSentence.trim().length == 0} />
             </div>
+
+            <FlippedSentence sentence={flippedSentence.sentence} />
           </div>
 
-          <LastSentences getLastSentences={this.getLastSentences.bind(this)} sentences={this.state.lastSentences} />
+          <LastSentences getLastSentences={this.getLastSentences.bind(this)} sentences={lastSentences.slice(+(flippedSentence.sentence.length > 0))} />
       </div>
     );
   }

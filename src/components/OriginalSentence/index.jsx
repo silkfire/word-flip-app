@@ -12,6 +12,8 @@ export default class OriginalSentence extends Component {
     };
 
     this.inputChanged = this.inputChanged.bind(this);
+
+    this.inputNode = React.createRef();
   }
 
   inputChanged(event) {
@@ -19,10 +21,19 @@ export default class OriginalSentence extends Component {
 
       this.props.onChange(event.target.value);
   }
+
+
+
+  componentDidMount() {
+    this.props.refInputNode(this.inputNode);
+  }
+
  
   render() {
+    const { value } = this.props;
+
     return (
-      <textarea rows="10" styleName="default" autoFocus placeholder="Type a sentence here" value={this.state.value} onChange={this.inputChanged}/>
+      <textarea rows="10" styleName="default" autoFocus placeholder="Type a sentence here" value={value} onChange={this.inputChanged} ref={this.inputNode} />
     );
   }
 }

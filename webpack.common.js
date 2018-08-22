@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -26,6 +27,7 @@ module.exports = {
     }),
     new CleanWebpackPlugin(['dist']),
     
+    new webpack.DefinePlugin({ 'process.env.MAX_SENTENCE_COUNT': 10 })
     // Load environment variables from .env
     // new dotenv()
   ],
