@@ -1,5 +1,7 @@
 .container {
     margin: 24px auto 0;
+
+    font-family: 'Lato', sans-serif;
 }
 
 .sentence {
@@ -14,10 +16,28 @@
 }
 
 
+.created {
+    color: #bdbdbd;
+    font-size: 90%;
+    float: right;
+    margin: 0 0 0 14px;
+}
+
+
 @media only screen and (min-width: 48em) {
+    .container {
+        padding: 0 4px;
+    }
+
     .sentence {
         padding: 15px 0;
         border-bottom: 1px solid #f0edea;
+    }
+
+    .created {
+        float: none;
+        margin: 0 0 6px;
+        display: inline-block;
     }
 }
 

@@ -6,16 +6,47 @@
 
 @media only screen and (min-width: 48em) {
     .container {
-        width: 800px;
+        width: 590px;
     }
 }
 
 
 .input-container {
-    padding: 0 4px;
+    padding: 4px 4px 0;
 }
 
 
 .button-container {
     overflow: hidden;
+    position: relative;
+}
+
+
+/* https://stackoverflow.com/a/6943704/633098 */
+
+.loader {
+    background-image: url('~/img/loader.svg');
+    background-size: 45px;
+
+    width: 45px;
+    height: 45px;
+    margin: 5px 15px 0;
+
+    position: absolute;
+    right: 0;
+}
+
+
+.fade {
+    transition: visibility 0s, opacity 0.5s linear;
+}
+
+.visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
 }

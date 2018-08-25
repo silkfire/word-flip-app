@@ -1,4 +1,6 @@
 .default {
+    font-family: 'Open Sans', sans-serif;
+
     background-color: #f2625a;
     transition: all 0.3s;
     text-align: center;

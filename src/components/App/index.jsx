@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import classNames from 'classnames';
 import { hot } from 'react-hot-loader';
 import { flip, getLastSentences } from '~/shared/api.js'
 
@@ -18,6 +19,7 @@ class App extends Component {
 
     this.state = {
       originalSentence: '',
+      isLoading: false,
       flippedSentence: { sentence: '' },
       errorMessage: false,
       lastSentences: []
@@ -31,15 +33,22 @@ class App extends Component {
   
 
   getLastSentences() {
-    getLastSentences().then(data => this.setState({errorMessage: data.error,  lastSentences: data.body && JSON.parse(data.body).slice(0, maxSentenceCount) || [] }));
+    getLastSentences().then(data => this.setState({
+      errorMessage: data.error,
+      lastSentences: data.body && JSON.parse(data.body).slice(0, maxSentenceCount) || [] }));
   }
 
   flip() {
+    this.setState({
+      isLoading: true
+    });
+
     flip(this.state.originalSentence).then(data => {
       const { error, body } = data;
 
       this.setState({
         originalSentence: body ? '' : this.state.originalSentence,
+        isLoading: false,
         flippedSentence: body || this.state.flippedSentence,
         errorMessage: error,
         lastSentences: body && [ body, ...this.state.lastSentences].slice(0, maxSentenceCount) || this.state.lastSentences
@@ -68,10 +77,12 @@ class App extends Component {
   
             <div styleName="button-container">
                 <ErrorMessage message={errorMessage} />
-                <Button text="Flip" style={{ marginTop: '12px', width: '80px' }} onClick={this.flip.bind(this)} disabled={originalSentence.trim().length == 0} />
+
+                <div styleName={classNames( 'loader', 'fade', { visible: this.state.isLoading }, { hidden: !this.state.isLoading } )}></div>
+                <Button text="Flip" style={{ marginTop: '12px', width: '80px' }} onClick={this.flip.bind(this)} disabled={originalSentence.trim().length == 0} styleName={classNames('fade', { visible: !this.state.isLoading }, { hidden: this.state.isLoading })} />
             </div>
 
-            <FlippedSentence sentence={flippedSentence.sentence} />
+            <FlippedSentence sentence={flippedSentence} />
           </div>
 
           <LastSentences getLastSentences={this.getLastSentences.bind(this)} sentences={lastSentences.slice(+(flippedSentence.sentence.length > 0))} />

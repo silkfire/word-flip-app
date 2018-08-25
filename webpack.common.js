@@ -17,6 +17,19 @@ module.exports = {
     publicPath: '/',
     filename: 'assets/[name].bundle.js'
   },
+  module: {
+    rules: [
+      {
+        test: /\.svg$/,
+        use: {
+            loader: 'svg-url-loader',
+            options: {
+
+            }
+        }
+      }
+    ]
+  },
   plugins: [
     new CopyWebpackPlugin([
       { from: './src/favicon.*', to: distPath, flatten: true },

@@ -1,5 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import JavascriptTimeAgo from 'javascript-time-ago'
+
+import en from 'javascript-time-ago/locale/en'
+
+JavascriptTimeAgo.locale(en)
+
 
 import './css/base.css';
 import App from './components/App/index.jsx';

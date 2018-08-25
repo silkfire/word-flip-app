@@ -1,4 +1,6 @@
 .default {
+    font-family: 'Open Sans', sans-serif;
+
     color: #ff0000;
     float: left;
     margin: 22px 2px 0;

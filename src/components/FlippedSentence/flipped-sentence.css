@@ -1,5 +1,7 @@
 .default {
-    background-color: #eef7ef;
+    font-family: 'Lato', sans-serif;
+
+    background-color: #f9f9f9;
 
     text-align: left;
     font-size: 1rem;
@@ -14,4 +16,12 @@
 
 .visible {
     display: block;
+}
+
+.created {
+    color: #bdbdbd;
+    font-size: 90%;
+    float: right;
+    line-height: 1.5rem;
+    margin: 0 4px 0 12px;
 }
