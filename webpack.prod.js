@@ -69,7 +69,7 @@ module.exports = merge(common, {
           {
             loader: 'babel-loader',
             options: {
-              forceEnv: 'production'
+              envName: 'production'
             }
           }
         ],

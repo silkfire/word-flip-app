@@ -38,10 +38,7 @@ module.exports = merge(common, {
           {
             loader: 'babel-loader',
             options: {
-              presets: [ 
-                [ 'env', { modules: false } ] 
-              ],
-              forceEnv: 'development'
+              envName: 'development'
             }
           }
         ],
