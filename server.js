@@ -21,10 +21,13 @@ app.get('/', (req, res) => {
 app.use(bodyParser.json());
 
 const createResponse = (expressResponse) => (error, response, body) => {
-    // console.log(error);
+    // console.log(error.message);
 
     return expressResponse.json({
-                                    error: error && 'Failed to connect to the  WebFlip API.' || response.statusCode != 200 && (body[''] || body.error || 'Operation failed.'),
+                                    error:    error && (error.message.startsWith('Invalid') && 'Invalid API URL configured.' || 'Failed to connect to the  WebFlip API.')
+                                           || response.statusCode != 200 && (body['']
+                                           || body.error
+                                           || 'Operation failed.'),
                                     body:  response && response.statusCode == 200 && body
                                 });
 };
