@@ -25,9 +25,7 @@ const createResponse = (expressResponse) => (error, response, body) => {
 
     return expressResponse.json({
                                     error:    error && (error.message.startsWith('Invalid') && 'Invalid API URL configured.' || 'Failed to connect to the  WebFlip API.')
-                                           || response.statusCode != 200 && (body['']
-                                           || body.error
-                                           || 'Operation failed.'),
+                                           || response.statusCode != 200 && (body[''] || body.error || 'Operation failed.'),
                                     body:  response && response.statusCode == 200 && body
                                 });
 };
