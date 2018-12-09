@@ -25,7 +25,7 @@
 /* https://stackoverflow.com/a/6943704/633098 */
 
 .loader {
-    background-image: url('~/img/loader.svg');
+    background-image: url('img/loader.svg');
     background-size: 45px;
 
     width: 45px;
