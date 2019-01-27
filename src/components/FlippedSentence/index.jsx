@@ -23,7 +23,7 @@ export default class FlippedSentence extends Component {
 
         return (
             <div styleName={classNames('default', { visible: sentence.length > 0 })}>
-                {sentence.length > 0 && <ReactTimeAgo styleName="created" timeStyle={defaultStyleShort}>{new Date(created)}</ReactTimeAgo>}
+                {sentence.length > 0 && <ReactTimeAgo styleName="created" date={new Date(created)} timeStyle={defaultStyleShort} />}
                 <div>
                     {sentence}
                 </div>

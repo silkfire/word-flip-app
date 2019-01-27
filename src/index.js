@@ -4,7 +4,7 @@ import JavascriptTimeAgo from 'javascript-time-ago'
 
 import en from 'javascript-time-ago/locale/en'
 
-JavascriptTimeAgo.locale(en)
+JavascriptTimeAgo.addLocale(en)
 
 
 import './css/base.css';

@@ -23,7 +23,7 @@ export default class LastSentences extends Component {
     return (
       <div styleName="container">{
           sentences.map(s => (<div key={s.id} styleName="sentence">
-                                <ReactTimeAgo styleName="created" timeStyle={defaultStyleShort}>{new Date(s.created)}</ReactTimeAgo>
+                                <ReactTimeAgo styleName="created" date={new Date(s.created)} timeStyle={defaultStyleShort} />
                                 <div>
                                   {s.sentence}
                                 </div>
