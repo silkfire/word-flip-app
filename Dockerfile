@@ -1,4 +1,4 @@
-FROM node:8 AS builder
+FROM node:10.15.0 AS builder
 
 # Create building directory
 WORKDIR /root
@@ -18,7 +18,7 @@ RUN npm run build
 
 
 # Create a dedicated image for the compiled app
-FROM node:8
+FROM node:10.15.0
 
 # Create app directory
 WORKDIR /app
