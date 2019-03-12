@@ -36,7 +36,7 @@ module.exports = {
       title: 'Word Flip App',
       template: './src/index.html'
     }),
-    new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin(),
     
     new webpack.DefinePlugin({ 'process.env.MAX_SENTENCE_COUNT': 10 })
     // Load environment variables from .env
