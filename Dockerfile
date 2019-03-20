@@ -1,4 +1,4 @@
-FROM node:10.15.1-alpine AS builder
+FROM node:11.12.0-alpine AS builder
 
 # Create building directory
 WORKDIR /root
@@ -18,7 +18,7 @@ RUN npm run build
 
 
 # Create a dedicated image for the compiled app
-FROM node:10.15.1-alpine
+FROM node:11.12.0-alpine
 
 # Create app directory
 WORKDIR /app
