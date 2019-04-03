@@ -1,4 +1,4 @@
-FROM node:11.12.0-alpine AS builder
+FROM node:11.13.0-alpine AS builder
 
 # Create building directory
 WORKDIR /root
