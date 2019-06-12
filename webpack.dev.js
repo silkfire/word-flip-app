@@ -26,7 +26,9 @@ module.exports = merge(common, {
             loader: 'css-loader',
             options: {
               modules: true,
-              localIdentName: '[name]__[local]'
+              modules: {
+                localIdentName: '[name]__[local]'
+              }
             }
           }
         ]
