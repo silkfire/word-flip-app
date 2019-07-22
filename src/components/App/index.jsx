@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import classNames from 'classnames';
-import { hot } from 'react-hot-loader';
+import { hot } from 'react-hot-loader/root';
 import { flip, getLastSentences } from '~/shared/api.js'
 
 import OriginalSentence from '../OriginalSentence/index.jsx';
@@ -79,7 +79,7 @@ class App extends Component {
                 <ErrorMessage message={errorMessage} />
 
                 <div styleName={classNames( 'loader', 'fade', { visible: this.state.isLoading }, { hidden: !this.state.isLoading } )}></div>
-                <Button text="Flip" style={{ marginTop: '12px', width: '80px' }} onClick={this.flip.bind(this)} disabled={originalSentence.trim().length == 0} styleName={classNames('fade', { visible: !this.state.isLoading }, { hidden: this.state.isLoading })} />
+                <Button text="Flip" style={{ marginTop: '12px', width: '80px' }} onClick={this.flip.bind(this)} disabled={originalSentence.trim().length == 0 || !!this.state.errorMessage} styleName={classNames('fade', { visible: !this.state.isLoading }, { hidden: this.state.isLoading })} />
             </div>
 
             <FlippedSentence sentence={flippedSentence} />
@@ -92,4 +92,4 @@ class App extends Component {
 }
 
 
-export default hot(module)(App);
+export default hot(App);
