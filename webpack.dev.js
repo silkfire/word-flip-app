@@ -19,7 +19,7 @@ module.exports = merge(common, {
           {
             loader: 'style-loader',
             options: {
-              singleton: true
+              injectType: 'singletonStyleTag'
             }
           },
           {
