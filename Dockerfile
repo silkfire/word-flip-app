@@ -1,4 +1,4 @@
-FROM node:12.6.0-alpine AS builder
+FROM node:13.5.0-buster-slim AS builder
 
 # Create building directory
 WORKDIR /root
@@ -7,7 +7,7 @@ WORKDIR /root
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
 
-RUN npm install -f
+RUN npm i
 
 # Copy the source, configuration and server files
 COPY . ./
@@ -18,7 +18,7 @@ RUN npm run build
 
 
 # Create a dedicated image for the compiled app
-FROM node:12.6.0-alpine
+FROM node:13.3.0-buster-slim
 
 # Create app directory
 WORKDIR /app

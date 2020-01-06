@@ -1,35 +1,40 @@
-import React, { Component } from 'react';
-import classNames from 'classnames';
-import ReactTimeAgo from 'react-time-ago/no-tooltip'
-import defaultStyle from 'javascript-time-ago/commonjs/style/default'
-import { format as dateFormat } from 'date-fns'
+import React, { memo } from 'react';
+import defaultStyle from 'javascript-time-ago/commonjs/style/default';
+import dateFormat from 'date-fns/format';
 
-import './flipped-sentence.css'
+import './flipped-sentence.css';
 
+import ReactTimeAgo from 'react-time-ago/no-tooltip';
 
 const { gradation, units } = defaultStyle;
 const defaultStyleShort = {
   gradation,
   flavour: ['tiny'],
-  units
+  units,
 };
 
-export default class FlippedSentence extends Component {
-    constructor(props) {
-        super(props);
-    }
+function FlippedSentence({ sentence: { id, value, created } = {} }) {
+  let timeAgo;
 
-    render() {
-        const { sentence, created } = this.props.sentence;
-        const dateTime = new Date(created);
+  if (id !== undefined) {
+    const createdDateTime = new Date(created);
 
-        return (
-            <div styleName={classNames('default', { visible: sentence.length > 0 })}>
-                {sentence.length > 0 && <ReactTimeAgo styleName="created" date={dateTime} formatVerboseDate={_ => dateFormat(dateTime, 'YYYY-MM-DD HH:mm:ss Z')} timeStyle={defaultStyleShort} />}
-                <div>
-                    {sentence}
-                </div>
+    timeAgo = <ReactTimeAgo styleName="created" date={createdDateTime} formatVerboseDate={() => dateFormat(createdDateTime, 'yyyy-MM-dd HH:mm:ss XXX')} timeStyle={defaultStyleShort} />;
+  }
+
+  return (
+        <div styleName="default">
+            {timeAgo}
+            <div>
+                {value}
             </div>
-        );
-    }
+        </div>
+  );
 }
+
+export default memo(FlippedSentence, (prevProps, nextProps) => {
+  if (nextProps.sentence === undefined) return true;
+  if (prevProps.sentence === undefined) return false;
+
+  return prevProps.sentence.id === nextProps.sentence.id;
+});

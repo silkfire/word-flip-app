@@ -1,17 +1,12 @@
-import React, { Component } from 'react';
+import React, { memo } from 'react';
 
 import './error-message.css';
 
-export default class ErrorMessage extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        const { message } = this.props;
-
-        return (
-            <div styleName="default">{!!message && `Error: ${message}`}</div>
-        );
-    }
+function ErrorMessage({ message }) {
+  return (
+    <div styleName="default">{message}</div>
+  );
 }
+
+export default memo(ErrorMessage,
+  (prevProps, nextProps) => prevProps.message === nextProps.message);

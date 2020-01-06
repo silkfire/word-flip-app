@@ -1,27 +1,20 @@
-import React, { Component } from 'react';
+import React, { memo } from 'react';
 import classNames from 'classnames';
 
 import './button.css';
 
+function Button({
+  onClick, disabled, style, text,
+}) {
+  const onClickAction = (e) => {
+    if (!disabled) onClick(e);
+  };
 
-export default class Button extends Component {
-  constructor(props) {
-    super(props);
-
-    this.onClick = this.onClick.bind(this);
-  }
-
-  onClick() {
-      if (!this.props.disabled) {
-         this.props.onClick();
-      }
-  }
-
-  render() {
-    const { disabled, style, text } = this.props;
-
-    return (
-      <div styleName={classNames('default', { disabled })} style={style} onClick={this.onClick}>{text}</div>
-    );
-  }
+  return (
+    <div styleName={classNames('default', { disabled })} style={style} onClick={onClickAction}>{text}</div>
+  );
 }
+
+export default memo(Button, (prevProps, nextProps) => prevProps.disabled === nextProps.disabled
+                                                   && prevProps.onClick === nextProps.onClick
+                                                   && prevProps.text === nextProps.text);

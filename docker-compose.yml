@@ -20,8 +20,6 @@ services:
           dockerfile: Dockerfile-api
         image: silkfire/word-flip-api:1.0
         container_name: api
-        ports:
-            - "8080:8080"
         depends_on:
             - db
     db:

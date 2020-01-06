@@ -5,46 +5,51 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 // const dotenv = require('dotenv-webpack');
 
-const distPath = path.resolve(__dirname, 'dist');
+const srcPath = path.join(__dirname, '../src');
+const distPath = path.join(__dirname, '../dist');
 
 module.exports = {
-  context: path.resolve(__dirname),
+  context: __dirname,
   entry: {
-    app: ['./src/index.js']
+    app: [path.join(srcPath, 'index.js')],
   },
   output: {
     path: distPath,
     publicPath: '/',
-    filename: 'assets/[name].bundle.js'
+    filename: '[name].bundle.js',
   },
   module: {
     rules: [
       {
         test: /\.svg$/,
         use: {
-            loader: 'svg-url-loader',
-            options: { }
-        }
-      }
-    ]
+          loader: 'svg-url-loader',
+          options: { },
+        },
+      },
+    ],
   },
   plugins: [
     new CopyWebpackPlugin([
-      { from: './src/favicon.*', to: distPath, flatten: true },
+      { from: path.join(srcPath, 'favicon.*'), to: distPath, flatten: true },
     ]),
     new HtmlWebpackPlugin({
       title: 'Word Flip App',
-      template: './src/index.html'
+      template: path.join(srcPath, 'index.html'),
+      minify: {
+        removeScriptTypeAttributes: true,
+      },
+      cache: false,
     }),
     new CleanWebpackPlugin(),
-    
-    new webpack.DefinePlugin({ 'process.env.MAX_SENTENCE_COUNT': 10 })
+
+    new webpack.DefinePlugin({ 'process.env.MAX_SENTENCE_COUNT': JSON.stringify(10) }),
     // Load environment variables from .env
     // new dotenv()
   ],
   resolve: {
     alias: {
-      ['~']: path.resolve(__dirname, 'src')
-    }
+      '~': srcPath,
+    },
   },
 };

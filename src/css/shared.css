@@ -1,0 +1,10 @@
+/* https://stackoverflow.com/a/6943704/633098 */
+
+.fade {
+    transition: opacity 0.25s linear, visibility 0.25s linear !important;
+}
+
+.hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+}

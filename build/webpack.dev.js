@@ -2,14 +2,13 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const common = require('./webpack.common');
 
-
 module.exports = merge(common, {
   mode: 'development',
   entry: {
-    app: ['webpack-hot-middleware/client']
+    app: ['webpack-hot-middleware/client'],
   },
   output: {
-    publicPath: '/'
+    filename: '[name].bundle.js',
   },
   module: {
     rules: [
@@ -19,41 +18,43 @@ module.exports = merge(common, {
           {
             loader: 'style-loader',
             options: {
-              injectType: 'singletonStyleTag'
-            }
+              injectType: 'singletonStyleTag',
+            },
           },
           {
             loader: 'css-loader',
             options: {
-              modules: true,
               modules: {
-                localIdentName: '[name]__[local]'
-              }
-            }
-          }
-        ]
+                localIdentName: '[name]__[local]',
+              },
+            },
+          },
+        ],
       },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
+        resolve: {
+          extensions: ['.js', '.jsx'],
+        },
         use: [
           {
             loader: 'babel-loader',
             options: {
-              envName: 'development'
-            }
-          }
+              envName: 'development',
+            },
+          },
         ],
       },
     ],
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
   ],
   resolve: {
     alias: {
-      'react-dom': '@hot-loader/react-dom'
-    }
+      'react-dom': '@hot-loader/react-dom',
+    },
   },
-  devtool: 'inline-source-map'
+  devtool: 'inline-source-map',
 });

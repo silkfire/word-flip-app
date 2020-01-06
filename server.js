@@ -4,47 +4,55 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-const { getLastSentences, flip } = require('./apiMethods.js');
+const { getLastSentencesRequest, flipRequest } = require('./apiMethods');
 
-const distDirectory = path.resolve(__dirname, 'dist');
+const distDirectory = path.join(__dirname, 'dist');
 
-app.use(express.static(distDirectory));
+const registerGetCompressedAssetRoute = (route, mimeType, brSuffix, gzipSuffix, getFallbackAssetFilename) => {
+  app.get(route, (req, res) => {
+    let asset;
 
-app.get('/', (req, res) => {
-    res.sendFile(path.resolve(distDirectory, 'index.html'));
-});
+    res.set('Content-Type', `${mimeType}; charset=UTF-8`);
 
+    if (req.header('Accept-Encoding').includes('br')) {
+      req.url += brSuffix;
+      res.set('Content-Encoding', 'br');
 
+      asset = `br/${req.url}`;
+    } else if (req.header('Accept-Encoding').includes('gzip')) {
+      req.url += gzipSuffix;
+      res.set('Content-Encoding', 'gzip');
 
-//// API METHODS 
+      asset = `gz/${req.url}`;
+    } else asset = getFallbackAssetFilename(req);
+
+    res.sendFile(path.join(distDirectory, asset));
+  });
+};
+
+registerGetCompressedAssetRoute('*.css', 'text/css', '.br', '.gz', (req) => req.url);
+registerGetCompressedAssetRoute('*.js', 'application/javascript', '.br', '.gz', (req) => req.url);
+registerGetCompressedAssetRoute('/', 'text/html', 'index.html.br', 'index.html.gz', () => 'index.html');
+
+app.get('/favicon.ico', (req, res) => res.sendFile(path.join(distDirectory, 'favicon.ico')));
+app.get('/favicon.png', (req, res) => res.sendFile(path.join(distDirectory, 'favicon.png')));
+
+// // API METHODS
 
 app.use(bodyParser.json());
 
-const createResponse = (expressResponse) => (error, response, body) => {
-    // console.log(error.message);
+app.get('/getLastSentences', getLastSentencesRequest);
 
-    return expressResponse.json({
-                                    error:    error && (error.message.startsWith('Invalid') && 'Invalid API URL configured.' || 'Failed to connect to the  WebFlip API.')
-                                           || response.statusCode != 200 && (body[''] || body.error || 'Operation failed.'),
-                                    body:  response && response.statusCode == 200 && body
-                                });
-};
+app.post('/flip', flipRequest);
 
 
-app.get('/getLastSentences', (req, res) => getLastSentences(createResponse(res)));
+// ////
 
-app.post('/flip', (req, res) => flip(req.body, createResponse(res)));
+const server = app.listen(process.env.PORT || 3000, () => {
+  const address = server.address();
 
-//////
+  // console.log(process.env.API_URL);
+  // console.log(process.env.NODE_ENV);
 
-
-
-
-const server = app.listen(process.env.PORT || 3000, function() {
-    const address = server.address();
-
-    // console.log(process.env.API_URL);
-    // console.log(process.env.NODE_ENV);
-
-    console.log('App listening at http://%s:%s', address.address, address.port);
+  console.log('App listening at http://%s:%s', address.address, address.port);
 });

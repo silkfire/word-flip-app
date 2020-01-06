@@ -1,95 +1,111 @@
-import React, { Component } from 'react'
-import classNames from 'classnames';
 import { hot } from 'react-hot-loader/root';
-import { flip, getLastSentences } from '~/shared/api.js'
+import React, { useState, useEffect, useCallback } from 'react';
+import classNames from 'classnames';
+import { flip, getLastSentences } from '~/shared/api';
 
-import OriginalSentence from '../OriginalSentence/index.jsx';
-import Button from '../Button/index.jsx';
-import ErrorMessage from '../ErrorMessage/index.jsx';
-import FlippedSentence from '../FlippedSentence/index.jsx';
-import LastSentences from '../LastSentences/index.jsx';
+// eslint-disable-next-line no-unused-vars
+import appStyles from './app.css';
+// eslint-disable-next-line no-unused-vars
+import sharedStyles from '../../css/shared.css';
 
-import './app.css';
+import OriginalSentence from '../OriginalSentence';
+import FlipButton from '../Button';
+import FlipSentenceSpinner from '../Spinner';
+import ErrorMessage from '../ErrorMessage';
+import FlippedSentence from '../FlippedSentence';
+import LastSentencesLoader from '../Loader';
+import LastSentences from '../LastSentences';
 
-const maxSentenceCount = process.env.MAX_SENTENCE_COUNT;
-
-class App extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      originalSentence: '',
-      isLoading: false,
-      flippedSentence: { sentence: '' },
-      errorMessage: false,
-      lastSentences: []
-    };
-  }
+const API_OFFLINE_MESSAGE = 'WordFlip API service offline.';
+const { MAX_SENTENCE_COUNT } = process.env;
 
 
-  onOriginalSentenceChange(value) {
-    this.setState({originalSentence: value});
-  }
-  
+const App = () => {
+  const [lastSentences, setLastSentences] = useState([]);
+  const [originalSentence, setOriginalSentence] = useState('');
+  const [originalSentenceInputNode, setOriginalSentenceInputNode] = useState(undefined);
+  const [isLoadingLastSentences, setLoadingStateLastSentences] = useState(true);
+  const [isFlipping, setFlippingState] = useState(false);
+  const [flippedSentence, setFlippedSentence] = useState(undefined);
+  const [errorMessage, setErrorMessage] = useState(undefined);
 
-  getLastSentences() {
-    getLastSentences().then(data => this.setState({
-      errorMessage: data.error,
-      lastSentences: data.body && JSON.parse(data.body).slice(0, maxSentenceCount) || [] }));
-  }
+  const refInputNode = useCallback((inputNode) => {
+    setOriginalSentenceInputNode(inputNode);
+  }, []);
 
-  flip() {
-    this.setState({
-      isLoading: true
+  const originalSentenceChangedAction = useCallback((value) => (setOriginalSentence(value)), []);
+  const flipAction = useCallback(() => {
+    setFlippingState(true);
+
+    flip(originalSentence).then((data) => {
+      setOriginalSentence('');
+
+      if (flippedSentence !== undefined) setLastSentences([flippedSentence, ...lastSentences].slice(0, MAX_SENTENCE_COUNT));
+      setFlippedSentence(data);
+
+      originalSentenceInputNode.current.focus();
+    }).catch(({ error }) => {
+      setErrorMessage(error || API_OFFLINE_MESSAGE);
+    }).finally(() => {
+      setFlippingState(false);
     });
+  }, [originalSentence, originalSentenceInputNode, lastSentences, flippedSentence]);
 
-    flip(this.state.originalSentence).then(data => {
-      const { error, body } = data;
-
-      this.setState({
-        originalSentence: body ? '' : this.state.originalSentence,
-        isLoading: false,
-        flippedSentence: body || this.state.flippedSentence,
-        errorMessage: error,
-        lastSentences: body && [ body, ...this.state.lastSentences].slice(0, maxSentenceCount) || this.state.lastSentences
-      });
-
-      if (body) {
-        this.originalSentenceInputNode.current.focus();
-      }
+  useEffect(() => {
+    getLastSentences().then((data) => {
+      setErrorMessage(undefined);
+      setLastSentences(data.slice(0, MAX_SENTENCE_COUNT));
+    }).catch(({ error }) => {
+      setErrorMessage(error || API_OFFLINE_MESSAGE);
+    }).finally(() => {
+      setLoadingStateLastSentences(false);
     });
-  }
-
-  refInputNode(inputNode) {
-    this.originalSentenceInputNode = inputNode;
-  }
+  }, []);
 
 
+  return (
+      <div styleName="appStyles.container">
+          <div styleName="appStyles.input-container">
+            <OriginalSentence value={originalSentence}
+                              onChangeAction={originalSentenceChangedAction}
+                              refInputNode={refInputNode} />
 
+            <div styleName="appStyles.button-container">
+                <div styleName={classNames('appStyles.error-message-container', 'sharedStyles.fade', { 'sharedStyles.hidden': errorMessage === undefined })}>
+                  <ErrorMessage message={errorMessage} />
+                </div>
 
-  render() {
-    const { originalSentence, errorMessage, flippedSentence, lastSentences } = this.state;
+                <div styleName={classNames('appStyles.flip-sentence-spinner-wrapper', 'sharedStyles.fade', { 'sharedStyles.hidden': !isFlipping })}>
+                  <FlipSentenceSpinner />
+                </div>
 
-    return (
-      <div styleName="container">
-          <div styleName="input-container">
-            <OriginalSentence onChange={this.onOriginalSentenceChange.bind(this)} value={originalSentence} refInputNode={this.refInputNode.bind(this)} />
-  
-            <div styleName="button-container">
-                <ErrorMessage message={errorMessage} />
-
-                <div styleName={classNames( 'loader', 'fade', { visible: this.state.isLoading }, { hidden: !this.state.isLoading } )}></div>
-                <Button text="Flip" style={{ marginTop: '12px', width: '80px' }} onClick={this.flip.bind(this)} disabled={originalSentence.trim().length == 0 || !!this.state.errorMessage} styleName={classNames('fade', { visible: !this.state.isLoading }, { hidden: this.state.isLoading })} />
+                <div styleName={classNames('appStyles.flip-button-wrapper', 'sharedStyles.fade', { 'sharedStyles.hidden': isFlipping })}>
+                  <FlipButton text="Flip" style={{ width: '80px' }}
+                          onClick={flipAction}
+                          disabled={ originalSentence.trim().length === 0
+                                  || errorMessage !== undefined } />
+                </div>
             </div>
 
-            <FlippedSentence sentence={flippedSentence} />
+
+            <div styleName={classNames('appStyles.flipped-sentence-wrapper-outer', { 'appStyles.visible': !!flippedSentence })}>
+              <div styleName="appStyles.flipped-sentence-wrapper-inner">
+                <FlippedSentence sentence={flippedSentence} />
+              </div>
+            </div>
           </div>
 
-          <LastSentences getLastSentences={this.getLastSentences.bind(this)} sentences={lastSentences.slice(+(flippedSentence.sentence.length > 0))} />
+          <div styleName="appStyles.last-sentences-wrapper">
+            <div styleName={classNames('appStyles.loader-wrapper', 'sharedStyles.fade', { 'sharedStyles.hidden': !isLoadingLastSentences })}>
+                <LastSentencesLoader color={'#5a80ea'} />
+            </div>
+
+            <LastSentences sentences={lastSentences}
+                          flippedSentenceId={flippedSentence && flippedSentence.id} />
+          </div>
       </div>
-    );
-  }
-}
+  );
+};
 
 
 export default hot(App);

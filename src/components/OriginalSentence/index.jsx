@@ -1,39 +1,24 @@
-import React, { Component } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 
 import './original-sentence.css';
 
 
-export default class OriginalSentence extends Component {
-  constructor(props) {
-    super(props);
+export default function OriginalSentence({ value, onChangeAction, refInputNode }) {
+  const onChangeActionWrapper = useCallback((e) => {
+    onChangeAction(e.target.value);
+  }, [onChangeAction]);
 
-    this.state = {
-      value: '',
-    };
+  const inputNode = useRef();
 
-    this.inputChanged = this.inputChanged.bind(this);
+  useEffect(() => (refInputNode(inputNode)), [refInputNode]);
 
-    this.inputNode = React.createRef();
-  }
-
-  inputChanged(event) {
-      this.setState({value: event.target.value});
-
-      this.props.onChange(event.target.value);
-  }
-
-
-
-  componentDidMount() {
-    this.props.refInputNode(this.inputNode);
-  }
-
- 
-  render() {
-    const { value } = this.props;
-
-    return (
-      <textarea rows="10" styleName="default" autoFocus placeholder="Type a sentence here" value={value} onChange={this.inputChanged} ref={this.inputNode} />
-    );
-  }
+  return (
+    <textarea rows="10"
+              styleName="default"
+              autoFocus
+              placeholder="Type a sentence here"
+              value={value}
+              onChange={onChangeActionWrapper}
+              ref={inputNode} />
+  );
 }
