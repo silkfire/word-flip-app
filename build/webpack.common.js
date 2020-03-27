@@ -40,6 +40,7 @@ module.exports = {
         removeScriptTypeAttributes: true,
       },
       cache: false,
+      scriptLoading: 'defer',
     }),
     new CleanWebpackPlugin(),
 
