@@ -102,8 +102,6 @@ module.exports = merge(common, {
     ],
   },
   plugins: [
-    new InlineManifestWebpackPlugin(),
-
     // Persist CSS modules to individual files
     new MiniCssExtractPlugin({
       chunkFilename: ({ chunk: { name } }) => `${name === 'vendor' ? 'sanitize' : '[name]'}.[contenthash:12].css`,
@@ -128,6 +126,8 @@ module.exports = merge(common, {
       deleteOriginalAssets: false,
     }),
 
+    // TODO: Uncomment after https://github.com/szrenwei/inline-manifest-webpack-plugin/pull/26 is resolved
+    // new InlineManifestWebpackPlugin(),
 
     // new BundleAnalyzerPlugin(),
   ],

@@ -10,7 +10,7 @@ export default function OriginalSentence({ value, onChangeAction, refInputNode }
 
   const inputNode = useRef();
 
-  useEffect(() => (refInputNode(inputNode)), [refInputNode]);
+  useEffect(() => refInputNode(inputNode), [refInputNode]);
 
   return (
     <textarea rows="10"

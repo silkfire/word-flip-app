@@ -33,7 +33,7 @@ const App = () => {
     setOriginalSentenceInputNode(inputNode);
   }, []);
 
-  const originalSentenceChangedAction = useCallback((value) => (setOriginalSentence(value)), []);
+  const originalSentenceChangedAction = useCallback((value) => setOriginalSentence(value), []);
   const flipAction = useCallback(() => {
     setFlippingState(true);
 

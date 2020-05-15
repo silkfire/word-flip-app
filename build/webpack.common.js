@@ -5,6 +5,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 // const dotenv = require('dotenv-webpack');
 
+const pathJoinUnix = (...arg) => path.join(...arg).replace(/\\/g, '/');
+
 const srcPath = path.join(__dirname, '../src');
 const distPath = path.join(__dirname, '../dist');
 
@@ -30,9 +32,11 @@ module.exports = {
     ],
   },
   plugins: [
-    new CopyWebpackPlugin([
-      { from: path.join(srcPath, 'favicon.*'), to: distPath, flatten: true },
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: pathJoinUnix(srcPath, 'favicon.*'), to: distPath, flatten: true },
+      ],
+    }),
     new HtmlWebpackPlugin({
       title: 'Word Flip App',
       template: path.join(srcPath, 'index.html'),
