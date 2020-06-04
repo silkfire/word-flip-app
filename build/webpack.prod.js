@@ -1,15 +1,16 @@
 const path = require('path');
 
-const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const CompressionPlugin = require('compression-webpack-plugin');
 
 const merge = require('webpack-merge');
 const common = require('./webpack.common');
-const generateScopedName = require('./createUniqueIdGenerator');
+// const generateScopedName = require('./createUniqueIdGenerator');
 
 module.exports = merge(common, {
   mode: 'production',
@@ -126,8 +127,7 @@ module.exports = merge(common, {
       deleteOriginalAssets: false,
     }),
 
-    // TODO: Uncomment after https://github.com/szrenwei/inline-manifest-webpack-plugin/pull/26 is resolved
-    // new InlineManifestWebpackPlugin(),
+    new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime/]),
 
     // new BundleAnalyzerPlugin(),
   ],
