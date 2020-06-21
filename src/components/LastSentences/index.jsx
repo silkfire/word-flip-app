@@ -5,7 +5,7 @@ import dateFormat from 'date-fns/format';
 
 import './last-sentences.css';
 
-import ReactTimeAgo from 'react-time-ago/no-tooltip';
+import ReactTimeAgo from 'react-time-ago';
 
 const { gradation, units } = defaultStyle;
 const defaultStyleShort = {

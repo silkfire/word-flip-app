@@ -30,7 +30,7 @@ app.post('/flip', flipRequest);
 
 // ////
 
-const server = app.listen(3000, 'localhost', () => {
+const server = app.listen(3000, () => {
   const address = server.address();
 
   console.log('App listening at http://%s:%s', address.address, address.port);
