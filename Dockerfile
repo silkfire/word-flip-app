@@ -1,4 +1,4 @@
-FROM node:14.5.0-buster-slim AS builder
+FROM node:14.7.0-buster-slim AS builder
 
 # Create building directory
 WORKDIR /root
@@ -18,7 +18,7 @@ RUN npm run build
 
 
 # Create a dedicated image for the compiled app
-FROM node:14.5.0-buster-slim
+FROM node:14.7.0-buster-slim
 
 # Create app directory
 WORKDIR /app
