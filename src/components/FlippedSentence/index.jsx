@@ -19,7 +19,10 @@ function FlippedSentence({ sentence: { id, value, created } = {} }) {
   if (id !== undefined) {
     const createdDateTime = new Date(created);
 
-    timeAgo = <ReactTimeAgo styleName="created" date={createdDateTime} formatVerboseDate={() => dateFormat(createdDateTime, 'yyyy-MM-dd HH:mm:ss XXX')} timeStyle={defaultStyleShort} />;
+    timeAgo = <ReactTimeAgo styleName="created"
+                            date={createdDateTime}
+                            formatVerboseDate={() => dateFormat(createdDateTime, 'yyyy-MM-dd HH:mm:ss XXX')}
+                            timeStyle={defaultStyleShort} />;
   }
 
   return (

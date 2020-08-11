@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useCallback } from 'react';
 
 import './original-sentence.css';
 
-
 export default function OriginalSentence({ value, onChangeAction, refInputNode }) {
   const onChangeActionWrapper = useCallback((e) => {
     onChangeAction(e.target.value);

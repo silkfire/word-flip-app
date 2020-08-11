@@ -11,13 +11,11 @@ const compiler = webpack(webpackConfig);
 
 const { getLastSentencesRequest, flipRequest } = require('./apiMethods');
 
-
 app.use(webpackDevMiddleware(compiler, {
   publicPath: webpackConfig.output.publicPath,
 }));
 
 app.use(webpackHotMiddleware(compiler));
-
 
 // // API METHODS
 
@@ -26,7 +24,6 @@ app.use(bodyParser.json());
 app.get('/getLastSentences', getLastSentencesRequest);
 
 app.post('/flip', flipRequest);
-
 
 // ////
 

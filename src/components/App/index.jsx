@@ -1,4 +1,3 @@
-import { hot } from 'react-hot-loader/root';
 import React, { useState, useEffect, useCallback } from 'react';
 import classNames from 'classnames';
 import { flip, getLastSentences } from '~/shared/api';
@@ -18,7 +17,6 @@ import LastSentences from '../LastSentences';
 
 const API_OFFLINE_MESSAGE = 'WordFlip API service offline.';
 const { MAX_SENTENCE_COUNT } = process.env;
-
 
 const App = () => {
   const [lastSentences, setLastSentences] = useState([]);
@@ -62,7 +60,6 @@ const App = () => {
     });
   }, []);
 
-
   return (
       <div styleName="appStyles.container">
           <div styleName="appStyles.input-container">
@@ -87,7 +84,6 @@ const App = () => {
                 </div>
             </div>
 
-
             <div styleName={classNames('appStyles.flipped-sentence-wrapper-outer', { 'appStyles.visible': !!flippedSentence })}>
               <div styleName="appStyles.flipped-sentence-wrapper-inner">
                 <FlippedSentence sentence={flippedSentence} />
@@ -107,5 +103,4 @@ const App = () => {
   );
 };
 
-
-export default hot(App);
+export default App;
