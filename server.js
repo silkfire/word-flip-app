@@ -45,7 +45,6 @@ app.get('/getLastSentences', getLastSentencesRequest);
 
 app.post('/flip', flipRequest);
 
-
 // ////
 
 const server = app.listen(process.env.PORT || 3000, () => {

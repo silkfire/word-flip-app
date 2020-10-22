@@ -1,17 +1,10 @@
 import React, { memo } from 'react';
-import defaultStyle from 'javascript-time-ago/commonjs/style/default';
 import dateFormat from 'date-fns/format';
 
 import './flipped-sentence.css';
 
 import ReactTimeAgo from 'react-time-ago';
-
-const { gradation, units } = defaultStyle;
-const defaultStyleShort = {
-  gradation,
-  flavour: ['tiny'],
-  units,
-};
+import JTADefaultStyle from '~/shared/jta';
 
 function FlippedSentence({ sentence: { id, value, created } = {} }) {
   let timeAgo;
@@ -22,7 +15,7 @@ function FlippedSentence({ sentence: { id, value, created } = {} }) {
     timeAgo = <ReactTimeAgo styleName="created"
                             date={createdDateTime}
                             formatVerboseDate={() => dateFormat(createdDateTime, 'yyyy-MM-dd HH:mm:ss XXX')}
-                            timeStyle={defaultStyleShort} />;
+                            timeStyle={JTADefaultStyle} />;
   }
 
   return (

@@ -1,18 +1,11 @@
 import React, { memo } from 'react';
 import classNames from 'classnames';
-import defaultStyle from 'javascript-time-ago/commonjs/style/default';
 import dateFormat from 'date-fns/format';
 
 import './last-sentences.css';
 
 import ReactTimeAgo from 'react-time-ago';
-
-const { gradation, units } = defaultStyle;
-const defaultStyleShort = {
-  gradation,
-  flavour: ['tiny'],
-  units,
-};
+import JTADefaultStyle from '~/shared/jta';
 
 function LastSentences({ sentences }) {
   return (
@@ -21,7 +14,7 @@ function LastSentences({ sentences }) {
                                 <ReactTimeAgo styleName="created"
                                               date={new Date(s.created)}
                                               formatVerboseDate={() => dateFormat(new Date(s.created), 'yyyy-MM-dd HH:mm:ss XXX')}
-                                              timeStyle={defaultStyleShort} />
+                                              timeStyle={JTADefaultStyle} />
                                 <div>
                                   {s.value}
                                 </div>
