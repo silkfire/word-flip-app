@@ -7,14 +7,8 @@
     "development": {
       "plugins": [
         ["@babel/plugin-transform-runtime"],
-        ["react-css-modules", { "generateScopedName": "[name]__[local]"}],
+        ["@dr.pogodin/babel-plugin-react-css-modules", { "generateScopedName": "[name]__[local]"}],
         "react-refresh/babel"
-      ]
-    },
-    "production": {
-      "plugins": [
-        ["@babel/plugin-transform-runtime"],
-        ["react-css-modules"]
       ]
     }
   }
