@@ -1,30 +1,59 @@
 import React, { memo } from 'react';
 import dateFormat from 'date-fns/format';
-
-import './flipped-sentence.css';
+import styled from 'styled-components';
 
 import ReactTimeAgo from 'react-time-ago';
 import JTADefaultStyle from '~/shared/jta';
 
-function FlippedSentence({ sentence: { id, value, created } = {} }) {
-  let timeAgo;
+const $FlippedSentence = styled.div`
+  font-family: 'Lato', sans-serif;
+
+  background-color: #edf0fb;
+  text-align: left;
+  font-size: 1rem;
+  line-height: 1.5rem;
+
+  padding: 20px 8px;
+
+  border-bottom: 2px solid #a6c3ff;
+
+  @media only screen and (min-width: 48em) {
+    background-color: #f2f4ff;
+    border-right: 1px solid #a6c3ff;
+    padding: 20px 12px;
+  }
+`;
+
+const $CreatedTimestamp = styled(ReactTimeAgo)`
+  color: #bdbdbd;
+  font-size: 90%;
+  float: right;
+  line-height: 1.5rem;
+  margin: 0 4px 0 12px;
+
+  @media only screen and (min-width: 48em) {
+    margin: 0 -4px 0 0;
+  }
+`;
+
+function FlippedSentence({ sentence: { id, value, created } = {}, className }) {
+  let createdTimestamp;
 
   if (id !== undefined) {
     const createdDateTime = new Date(created);
 
-    timeAgo = <ReactTimeAgo styleName="created"
-                            date={createdDateTime}
-                            formatVerboseDate={() => dateFormat(createdDateTime, 'yyyy-MM-dd HH:mm:ss XXX')}
-                            timeStyle={JTADefaultStyle} />;
+    createdTimestamp = <$CreatedTimestamp date={createdDateTime}
+                                          formatVerboseDate={() => dateFormat(createdDateTime, 'yyyy-MM-dd HH:mm:ss XXX')}
+                                          timeStyle={JTADefaultStyle} />;
   }
 
   return (
-        <div styleName="default">
-            {timeAgo}
+        <$FlippedSentence className={className}>
+            {createdTimestamp}
             <div>
                 {value}
             </div>
-        </div>
+        </$FlippedSentence>
   );
 }
 

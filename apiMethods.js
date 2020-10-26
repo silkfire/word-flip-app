@@ -1,5 +1,7 @@
 const axios = require('axios-is-buffer-removed');
 
+if (process.env.API_URL === undefined) throw new Error('API endpoint missing. Make sure the environment variable \'API_URL\' has been properly set.');
+
 const API_ENDPOINT = `${process.env.API_URL}/api/flip`;
 const optionsTimeout = { timeout: 1500 };
 

@@ -7,7 +7,6 @@
     "development": {
       "plugins": [
         ["@babel/plugin-transform-runtime"],
-        ["@dr.pogodin/babel-plugin-react-css-modules", { "generateScopedName": "[name]__[local]"}],
         "react-refresh/babel"
       ]
     }

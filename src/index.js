@@ -4,7 +4,6 @@ import JavascriptTimeAgo from 'javascript-time-ago';
 
 import en from 'javascript-time-ago/locale/en';
 
-import 'sanitize.css';
 import App from './components/App';
 
 JavascriptTimeAgo.addLocale(en);

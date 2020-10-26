@@ -45,6 +45,7 @@ module.exports = {
       },
       cache: false,
       scriptLoading: 'defer',
+      inject: 'body',
     }),
     new CleanWebpackPlugin(),
 

@@ -1,10 +1,15 @@
 import React, { memo } from 'react';
+import styled from 'styled-components';
 
-import './error-message.css';
+const $ErrorMessage = styled.div`
+  font-family: 'Varela Round', sans-serif;
+  font-size: 0.9rem;
+  color: #bf0000;
+`;
 
-function ErrorMessage({ message }) {
+function ErrorMessage({ message, className }) {
   return (
-    <div styleName="default">{message}</div>
+    <$ErrorMessage className={className}>{message}</$ErrorMessage>
   );
 }
 

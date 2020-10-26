@@ -1,4 +1,4 @@
-import defaultStyle from 'javascript-time-ago/commonjs/style/round';
+import defaultStyle from 'javascript-time-ago/commonjs/style/miniMinuteNow';
 
 const { steps } = defaultStyle;
 const JTADefaultStyle = {

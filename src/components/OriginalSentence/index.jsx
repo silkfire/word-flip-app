@@ -1,6 +1,25 @@
 import React, { useEffect, useRef, useCallback } from 'react';
+import styled from 'styled-components';
 
-import './original-sentence.css';
+const $OriginalSentence = styled.textarea`
+  resize: none;
+  outline: none;
+  -webkit-appearance: none;
+
+  width: 100%;
+
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 5px;
+  border: 1px solid #eaeaea;
+
+  &::placeholder {
+    color: #c7c7c7;
+  }
+
+  @media only screen and (min-width: 48em) {
+    margin: 50px auto 0;
+  }
+`;
 
 export default function OriginalSentence({ value, onChangeAction, refInputNode }) {
   const onChangeActionWrapper = useCallback((e) => {
@@ -12,12 +31,11 @@ export default function OriginalSentence({ value, onChangeAction, refInputNode }
   useEffect(() => refInputNode(inputNode), [refInputNode]);
 
   return (
-    <textarea rows="10"
-              styleName="default"
-              autoFocus
-              placeholder="Type a sentence here"
-              value={value}
-              onChange={onChangeActionWrapper}
-              ref={inputNode} />
+    <$OriginalSentence rows="10"
+                       autoFocus
+                       placeholder="Type a sentence here"
+                       value={value}
+                       onChange={onChangeActionWrapper}
+                       ref={inputNode} />
   );
 }

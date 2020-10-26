@@ -24,14 +24,7 @@ module.exports = merge(common, {
               injectType: 'singletonStyleTag',
             },
           },
-          {
-            loader: 'css-loader',
-            options: {
-              modules: {
-                localIdentName: '[name]__[local]',
-              },
-            },
-          },
+          'css-loader',
         ],
       },
       {

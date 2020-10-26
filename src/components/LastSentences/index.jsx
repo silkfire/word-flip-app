@@ -1,25 +1,94 @@
 import React, { memo } from 'react';
-import classNames from 'classnames';
 import dateFormat from 'date-fns/format';
-
-import './last-sentences.css';
+import styled from 'styled-components';
 
 import ReactTimeAgo from 'react-time-ago';
 import JTADefaultStyle from '~/shared/jta';
 
+const $SentenceList = styled.div`
+  margin: 8px auto 0;
+
+  font-family: 'Lato', sans-serif;
+  transition-duration: 0.3s;
+  opacity: ${({ sentences }) => +!!(sentences && sentences.length > 0)};
+
+  @media only screen and (min-width: 48em) {
+    padding: 0 4px;
+  }
+`;
+
+const $Sentence = styled.div`
+  padding: 12px 10px;
+  border-bottom: 1px solid #d4d4d4;
+  text-align: left;
+  font-size: 0.9rem;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  @media only screen and (min-width: 48em) {
+    padding: 15px 0;
+    border-bottom: 1px solid #f0edea;
+  }
+`;
+
+const $CreatedTimestamp = styled(ReactTimeAgo)`
+  color: #bdbdbd;
+  font-size: 90%;
+  float: right;
+  margin: 0 0 0 14px;
+  transition-duration: 0.2s;
+
+  @media only screen and (min-width: 48em) {
+    float: none;
+    margin: 0 0 6px;
+    position: relative;
+    display: inline-block;
+
+    &:before {
+      width: calc(100% + 2px);
+      height: 15px;
+      background-color: #fff7e7;
+      position: absolute;
+      display: block;
+      content: "";
+      z-index: -1;
+      margin: 4px 2px;
+      transform: skew(0deg, -6deg);
+      transition-duration: 0.2s;
+    }
+
+    &:hover {
+      cursor: help;
+      color: #fff;
+      margin: 0 -4px 6px;
+      border-right: 4px solid transparent;
+
+      &:before {
+        background-color: #669df9;
+        transform: skew(0);
+        width: calc(100% + 6px);
+        height: 20px;
+        margin: 0px calc(50% - 3px);
+        left: -50%;
+      }
+    }
+  }
+`;
+
 function LastSentences({ sentences }) {
   return (
-      <div styleName={classNames('container', { visible: sentences && sentences.length > 0 })}>{
-          sentences.map((s) => (<div key={s.id} styleName="sentence">
-                                <ReactTimeAgo styleName="created"
-                                              date={new Date(s.created)}
-                                              formatVerboseDate={() => dateFormat(new Date(s.created), 'yyyy-MM-dd HH:mm:ss XXX')}
-                                              timeStyle={JTADefaultStyle} />
-                                <div>
-                                  {s.value}
-                                </div>
-                              </div>))
-      }</div>
+      <$SentenceList sentences={sentences}>
+          {sentences.map((s) => (<$Sentence key={s.id}>
+                                    <$CreatedTimestamp date={new Date(s.created)}
+                                                       formatVerboseDate={() => dateFormat(new Date(s.created), 'yyyy-MM-dd HH:mm:ss XXX')}
+                                                       timeStyle={JTADefaultStyle} />
+                                    <div>
+                                      {s.value}
+                                    </div>
+                                 </$Sentence>))}
+      </$SentenceList>
   );
 }
 
