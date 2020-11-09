@@ -78,7 +78,7 @@ const $Element4 = styled($Element)`
 function Loader({ color, className }) {
   return (
     <$Loader $color={color} className={className}>
-        <$Element1 key="0"/>
+        <$Element1 key="1"/>
         <$Element2 key="2"/>
         <$Element3 key="3"/>
         <$Element4 key="4"/>

@@ -10,4 +10,4 @@ JavascriptTimeAgo.addLocale(en);
 
 // console.log(process.env.NODE_ENV);
 
-ReactDOM.render(<App/>, document.getElementById('root'));
+ReactDOM.render(<App/>, document.getElementsByTagName('main')[0]);
