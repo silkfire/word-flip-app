@@ -26,6 +26,7 @@
         "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
         "import/prefer-default-export": "off",
         "max-len": ["error", { "code": 140, "ignoreTemplateLiterals": true, "ignoreComments": true }],
+        "quotes": ["error", { "allowTemplateLiterals": true }],
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error",
         "react-hooks/rules-of-hooks": "error",      // Checks rules of Hooks

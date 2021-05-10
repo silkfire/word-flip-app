@@ -34,7 +34,7 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin({
       patterns: [
-        { from: pathJoinUnix(srcPath, 'favicon.*'), to: `${distPath}/[name].[ext]` },
+        { from: pathJoinUnix(srcPath, 'favicon.*'), to: `${distPath}/[name][ext]` },
       ],
     }),
     new HtmlWebpackPlugin({

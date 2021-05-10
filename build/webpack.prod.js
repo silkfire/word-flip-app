@@ -38,7 +38,6 @@ module.exports = merge(common, {
               envName: 'production',
               plugins: [
                 ['babel-plugin-styled-components', { pure: true, fileName: false, displayName: false }],
-                ['@babel/plugin-transform-runtime'],
               ],
             },
           },

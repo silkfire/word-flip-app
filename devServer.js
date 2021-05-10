@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 
 const app = express();
 const webpack = require('webpack');
@@ -19,7 +18,7 @@ app.use(webpackHotMiddleware(compiler));
 
 // // API METHODS
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.get('/getLastSentences', getLastSentencesRequest);
 

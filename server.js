@@ -1,6 +1,5 @@
 const path = require('path');
 const express = require('express');
-const bodyParser = require('body-parser');
 
 const app = express();
 
@@ -39,7 +38,7 @@ app.get('/favicon.png', (req, res) => res.sendFile(path.join(distDirectory, 'fav
 
 // // API METHODS
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.get('/getLastSentences', getLastSentencesRequest);
 

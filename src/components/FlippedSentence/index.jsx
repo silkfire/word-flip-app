@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import dateFormat from 'date-fns/format';
 import styled from 'styled-components';
 

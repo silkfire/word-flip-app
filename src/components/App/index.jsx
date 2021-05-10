@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import 'sanitize.css';
 import styled from 'styled-components';
@@ -132,8 +132,8 @@ const App = () => {
   }, []);
 
   return (
-      <$App styleName="appStyles.container">
-        <$InputContainer styleName="appStyles.input-container">
+      <$App>
+        <$InputContainer>
           <OriginalSentence value={originalSentence}
                             onChangeAction={originalSentenceChangedAction}
                             refInputNode={refInputNode} />
