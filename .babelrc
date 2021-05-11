@@ -1,12 +1,6 @@
 {
   "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "useBuiltIns": "usage",
-        "corejs": 3
-      }
-    ],
+    "@babel/preset-env",
     [
       "@babel/preset-react", {
         "runtime": "automatic"
@@ -16,6 +10,7 @@
   "env": {
     "development": {
       "plugins": [
+        "@babel/plugin-transform-runtime",
         "babel-plugin-styled-components",
         "react-refresh/babel"
       ]
