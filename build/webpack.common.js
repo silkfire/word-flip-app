@@ -49,7 +49,6 @@ module.exports = {
     }),
     new CleanWebpackPlugin(),
 
-    new webpack.DefinePlugin({ 'process.env.MAX_SENTENCE_COUNT': JSON.stringify(10) }),
     // Load environment variables from .env
     // new dotenv()
   ],

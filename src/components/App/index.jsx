@@ -15,7 +15,7 @@ import LastSentencesLoader from '../Loader';
 import LastSentences from '../LastSentences';
 
 const API_OFFLINE_MESSAGE = 'WordFlip API service offline.';
-const { MAX_SENTENCE_COUNT } = process.env;
+const MAX_SENTENCE_COUNT = 10;
 
 const $App = styled.div`
   margin: 0 auto;

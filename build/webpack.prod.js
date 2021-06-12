@@ -37,7 +37,7 @@ module.exports = merge(common, {
             options: {
               envName: 'production',
               plugins: [
-                "@babel/plugin-transform-runtime",
+                '@babel/plugin-transform-runtime',
                 ['babel-plugin-styled-components', { pure: true, fileName: false, displayName: false }],
               ],
             },
@@ -57,6 +57,7 @@ module.exports = merge(common, {
             // console.log(module.context);
             // console.log(module.context.match(/[\\/]node_modules[\\/](@babel|scheduler|object-assign|regenerator-runtime|prop-types)/));
 
+            // eslint-disable-next-line max-len
             if (module.context.match(/@babel|@emotion|scheduler|object-assign|regenerator-runtime|prop-types|styled-components|shallowequal/)) return 'core';
             if (module.context.match(/react([\\]|-dom|-hot-loader)/)) return 'react';
             // if (module.context.match(/[\\/]node_modules[\\/]sanitize\.css/)) return 'sanitize';
