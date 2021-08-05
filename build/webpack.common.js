@@ -11,7 +11,7 @@ const pathJoinUnix = (...arg) => path.join(...arg).replace(/\\/g, '/');
 
 const srcPath = path.join(__dirname, '../src');
 const distPath = path.join(__dirname, '../dist');
-
+// TOOD: Use Asset Modules instead: https://webpack.js.org/guides/asset-modules/
 module.exports = {
   entry: {
     app: [path.join(srcPath, 'index.js')],

@@ -10,10 +10,7 @@ const compiler = webpack(webpackConfig);
 
 const { getLastSentencesRequest, flipRequest } = require('./apiMethods');
 
-app.use(webpackDevMiddleware(compiler, {
-  publicPath: webpackConfig.output.publicPath,
-}));
-
+app.use(webpackDevMiddleware(compiler));
 app.use(webpackHotMiddleware(compiler));
 
 // // API METHODS
