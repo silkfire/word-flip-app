@@ -1,4 +1,6 @@
-FROM node:16.7.0-alpine3.14 AS builder
+ARG NODE_VERSION=16.9.1-alpine3.14
+
+FROM node:${NODE_VERSION} AS builder
 
 # Create building directory
 WORKDIR /root
@@ -18,7 +20,7 @@ RUN npm run build
 
 
 # Create a dedicated image for the compiled app
-FROM node:16.7.0-alpine3.14
+FROM node:${NODE_VERSION}
 
 # Create app directory
 WORKDIR /app
