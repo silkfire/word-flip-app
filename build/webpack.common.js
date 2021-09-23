@@ -1,18 +1,19 @@
 // process.traceDeprecation = true;
 
-const path = require('path');
-const webpack = require('webpack');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+import path from 'path'
+import { fileURLToPath } from 'url'
+import CopyWebpackPlugin from 'copy-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 // const dotenv = require('dotenv-webpack');
 
-const pathJoinUnix = (...arg) => path.join(...arg).replace(/\\/g, '/');
+const pathJoinUnix = (...arg) => path.join(...arg).replace(/\\/g, '/')
 
-const srcPath = path.join(__dirname, '../src');
-const distPath = path.join(__dirname, '../dist');
-// TOOD: Use Asset Modules instead: https://webpack.js.org/guides/asset-modules/
-module.exports = {
+export const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const srcPath = pathJoinUnix(__dirname, '../src')
+const distPath = pathJoinUnix(__dirname, '../dist')
+
+export default {
   entry: {
     app: [path.join(srcPath, 'index.js')],
   },
@@ -24,10 +25,13 @@ module.exports = {
     rules: [
       {
         test: /\.svg$/,
-        use: {
-          loader: 'svg-url-loader',
-          options: { },
-        },
+        type: 'asset/inline',
+      },
+      {
+        test: /\.js$/,
+        resolve: {
+          fullySpecified: false
+        }
       },
     ],
   },
@@ -39,7 +43,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       title: 'Word Flip App',
-      template: path.join(srcPath, 'index.html'),
+      template: pathJoinUnix(srcPath, 'index.html'),
       minify: {
         removeScriptTypeAttributes: true,
       },
@@ -57,4 +61,4 @@ module.exports = {
       '~': srcPath,
     },
   },
-};
+}

@@ -1,5 +1,5 @@
-import { memo } from 'react';
-import styled from 'styled-components';
+import { memo } from 'react'
+import styled from 'styled-components'
 
 const $Button = styled.div`
   font-family: 'Open Sans', sans-serif;
@@ -19,20 +19,20 @@ const $Button = styled.div`
       cursor: pointer;
     }
   `) || 'background-color: #c3c3c3;'}
-`;
+`
 
 function Button({
   onClick, disabled, text, className,
 }) {
   const onClickAction = (e) => {
-    if (!disabled) onClick(e);
-  };
+    if (!disabled) onClick(e)
+  }
 
   return (
     <$Button $disabled={disabled} onClick={onClickAction} className={className}>{text}</$Button>
-  );
+  )
 }
 
 export default memo(Button, (prevProps, nextProps) => prevProps.disabled === nextProps.disabled
                                                    && prevProps.onClick === nextProps.onClick
-                                                   && prevProps.text === nextProps.text);
+                                                   && prevProps.text === nextProps.text)

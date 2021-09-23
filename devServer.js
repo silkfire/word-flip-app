@@ -1,30 +1,30 @@
-const express = require('express');
+import express, { json } from 'express'
 
-const app = express();
-const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
-const webpackConfig = require('./build/webpack.dev');
+const app = express()
+import webpack from 'webpack'
+import webpackDevMiddleware from 'webpack-dev-middleware'
+import webpackHotMiddleware from 'webpack-hot-middleware'
+import webpackConfig from './build/webpack.dev'
 
-const compiler = webpack(webpackConfig);
+const compiler = webpack(webpackConfig)
 
-const { getLastSentencesRequest, flipRequest } = require('./apiMethods');
+import { getLastSentencesRequest, flipRequest } from './apiMethods'
 
-app.use(webpackDevMiddleware(compiler));
-app.use(webpackHotMiddleware(compiler));
+app.use(webpackDevMiddleware(compiler))
+app.use(webpackHotMiddleware(compiler))
 
 // // API METHODS
 
-app.use(express.json());
+app.use(json())
 
-app.get('/getLastSentences', getLastSentencesRequest);
+app.get('/getLastSentences', getLastSentencesRequest)
 
-app.post('/flip', flipRequest);
+app.post('/flip', flipRequest)
 
 // ////
 
 const server = app.listen(3000, () => {
-  const address = server.address();
+  const address = server.address()
 
-  console.log('App listening at http://%s:%s', address.address, address.port);
-});
+  console.log('App listening at http://%s:%s', address.address, address.port)
+})

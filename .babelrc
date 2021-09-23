@@ -7,12 +7,26 @@
       }
     ]
   ],
+  "plugins": [
+    "@babel/plugin-transform-runtime"
+  ],
   "env": {
     "development": {
       "plugins": [
-        "@babel/plugin-transform-runtime",
         "babel-plugin-styled-components",
         "react-refresh/babel"
+      ]
+    },
+    "production": {
+      "plugins": [
+        [
+          "babel-plugin-styled-components",
+          {
+            "pure": true,
+            "fileName": false,
+            "displayName": false
+          }
+        ]
       ]
     }
   }

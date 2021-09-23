@@ -1,5 +1,5 @@
-import { useEffect, useRef, useCallback } from 'react';
-import styled from 'styled-components';
+import { useEffect, useRef, useCallback } from 'react'
+import styled from 'styled-components'
 
 const $OriginalSentence = styled.textarea`
   resize: none;
@@ -19,16 +19,16 @@ const $OriginalSentence = styled.textarea`
   @media only screen and (min-width: 48em) {
     margin: 50px auto 0;
   }
-`;
+`
 
 export default function OriginalSentence({ value, onChangeAction, refInputNode }) {
   const onChangeActionWrapper = useCallback((e) => {
-    onChangeAction(e.target.value);
-  }, [onChangeAction]);
+    onChangeAction(e.target.value)
+  }, [onChangeAction])
 
-  const inputNode = useRef();
+  const inputNode = useRef()
 
-  useEffect(() => refInputNode(inputNode), [refInputNode]);
+  useEffect(() => refInputNode(inputNode), [refInputNode])
 
   return (
     <$OriginalSentence rows="10"
@@ -37,5 +37,5 @@ export default function OriginalSentence({ value, onChangeAction, refInputNode }
                        value={value}
                        onChange={onChangeActionWrapper}
                        ref={inputNode} />
-  );
+  )
 }

@@ -1,9 +1,9 @@
-import { memo } from 'react';
-import dateFormat from 'date-fns/format';
-import styled from 'styled-components';
+import { memo } from 'react'
+import dateFormat from 'date-fns/format'
+import styled from 'styled-components'
 
-import ReactTimeAgo from 'react-time-ago';
-import JTADefaultStyle from '~/shared/jta';
+import ReactTimeAgo from 'react-time-ago'
+import JTADefaultStyle from '~/shared/jta'
 
 const $FlippedSentence = styled.div`
   font-family: 'Lato', sans-serif;
@@ -22,7 +22,7 @@ const $FlippedSentence = styled.div`
     border-right: 1px solid #a6c3ff;
     padding: 20px 12px;
   }
-`;
+`
 
 const $CreatedTimestamp = styled(ReactTimeAgo)`
   color: #bdbdbd;
@@ -34,17 +34,17 @@ const $CreatedTimestamp = styled(ReactTimeAgo)`
   @media only screen and (min-width: 48em) {
     margin: 0 -4px 0 0;
   }
-`;
+`
 
 function FlippedSentence({ sentence: { id, value, created } = {}, className }) {
-  let createdTimestamp;
+  let createdTimestamp
 
   if (id !== undefined) {
-    const createdDateTime = new Date(created);
+    const createdDateTime = new Date(created)
 
     createdTimestamp = <$CreatedTimestamp date={createdDateTime}
                                           formatVerboseDate={() => dateFormat(createdDateTime, 'yyyy-MM-dd HH:mm:ss XXX')}
-                                          timeStyle={JTADefaultStyle} />;
+                                          timeStyle={JTADefaultStyle} />
   }
 
   return (
@@ -54,12 +54,12 @@ function FlippedSentence({ sentence: { id, value, created } = {}, className }) {
                 {value}
             </div>
         </$FlippedSentence>
-  );
+  )
 }
 
 export default memo(FlippedSentence, (prevProps, nextProps) => {
-  if (nextProps.sentence === undefined) return true;
-  if (prevProps.sentence === undefined) return false;
+  if (nextProps.sentence === undefined) return true
+  if (prevProps.sentence === undefined) return false
 
-  return prevProps.sentence.id === nextProps.sentence.id;
-});
+  return prevProps.sentence.id === nextProps.sentence.id
+})

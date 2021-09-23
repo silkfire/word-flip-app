@@ -1,8 +1,8 @@
 // https://loading.io/css/
 
-import { memo } from 'react';
+import { memo } from 'react'
 
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components'
 
 const $Loader = styled.div`
   display: inline-block;
@@ -13,7 +13,7 @@ const $Loader = styled.div`
   > div {
     background: ${({ $color }) => $color};
   }
-`;
+`
 
 const $Element = styled.div`
   position: absolute;
@@ -23,7 +23,7 @@ const $Element = styled.div`
   border-radius: 50%;
   /* background: #fff; */
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
-`;
+`
 
 const loader1 = keyframes`
   0% {
@@ -33,7 +33,7 @@ const loader1 = keyframes`
   100% {
       transform: scale(1);
   }
-`;
+`
 
 const loader2 = keyframes`
   0% {
@@ -43,7 +43,7 @@ const loader2 = keyframes`
   100% {
       transform: translate(24px, 0);
   }
-`;
+`
 
 const loader3 = keyframes`
   0% {
@@ -53,27 +53,27 @@ const loader3 = keyframes`
   100% {
       transform: scale(0);
   }
-`;
+`
 
 const $Element1 = styled($Element)`
   left: 8px;
   animation: ${loader1} 0.6s infinite;
-`;
+`
 
 const $Element2 = styled($Element)`
   left: 8px;
   animation: ${loader2} 0.6s infinite;
-`;
+`
 
 const $Element3 = styled($Element)`
   left: 32px;
   animation: ${loader2} 0.6s infinite;
-`;
+`
 
 const $Element4 = styled($Element)`
   left: 56px;
   animation: ${loader3} 0.6s infinite;
-`;
+`
 
 function Loader({ color, className }) {
   return (
@@ -83,7 +83,7 @@ function Loader({ color, className }) {
         <$Element3 key="3"/>
         <$Element4 key="4"/>
     </$Loader>
-  );
+  )
 }
 
-export default memo(Loader, () => true);
+export default memo(Loader, () => true)

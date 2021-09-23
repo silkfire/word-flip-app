@@ -1,21 +1,21 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react'
 
-import 'sanitize.css';
-import styled from 'styled-components';
-import { $FadeWrapper } from '~/shared/styles';
+import 'sanitize.css'
+import styled from 'styled-components'
+import { $FadeWrapper } from '~/shared/styles'
 
-import { flip, getLastSentences } from '~/shared/api';
+import { flip, getLastSentences } from '~/shared/api'
 
-import OriginalSentence from '../OriginalSentence';
-import FlipButton from '../Button';
-import FlipSentenceSpinner from '../Spinner';
-import ErrorMessage from '../ErrorMessage';
-import FlippedSentence from '../FlippedSentence';
-import LastSentencesLoader from '../Loader';
-import LastSentences from '../LastSentences';
+import OriginalSentence from '../OriginalSentence'
+import FlipButton from '../Button'
+import FlipSentenceSpinner from '../Spinner'
+import ErrorMessage from '../ErrorMessage'
+import FlippedSentence from '../FlippedSentence'
+import LastSentencesLoader from '../Loader'
+import LastSentences from '../LastSentences'
 
-const API_OFFLINE_MESSAGE = 'WordFlip API service offline.';
-const MAX_SENTENCE_COUNT = 10;
+const API_OFFLINE_MESSAGE = 'WordFlip API service offline.'
+const MAX_SENTENCE_COUNT = 10
 
 const $App = styled.div`
   margin: 0 auto;
@@ -24,41 +24,41 @@ const $App = styled.div`
   @media only screen and (min-width: 48em) {
     width: 590px;
   }
-`;
+`
 
 const $InputContainer = styled.div`
   padding: 4px 4px 0;
-`;
+`
 
 const $InputContainerFooter = styled.div`
   overflow: hidden;
   position: relative;
-`;
+`
 
 const $ErrorMessageWrapper = styled($FadeWrapper)`
   float: left;
   margin: 22px 2px 0;
-`;
+`
 
 const $FlipSentenceSpinnerWrapper = styled($FadeWrapper)`
   margin: 8px 15px 0;
 
   position: absolute;
   right: 0;
-`;
+`
 
 const $FlipButtonWrapper = styled($FadeWrapper)`
   margin: 12px 0 0;
-`;
+`
 
 const $FlipButton = styled(FlipButton)`
   width: 80px;
-`;
+`
 
 const $FlippedSentenceContainer = styled.div`
   height: ${({ $isVisible }) => ($isVisible ? 'auto' : 0)};
   overflow: hidden;
-`;
+`
 
 const $FlippedSentenceWrapper = styled(FlippedSentence)`
   transition: transform 0.25s ease-in-out;
@@ -72,11 +72,11 @@ const $FlippedSentenceWrapper = styled(FlippedSentence)`
       margin: 22px 0 0;
     }
   `)}
-`;
+`
 
 const $LastSentencesContainer = styled.div`
   position: relative;
-`;
+`
 
 const $LastSentencesLoaderWrapper = styled($FadeWrapper)`
   position: absolute;
@@ -87,49 +87,49 @@ const $LastSentencesLoaderWrapper = styled($FadeWrapper)`
   @media only screen and (min-width: 48em) {
     transform: translate(-50%, -65%) scale(1);
   }
-`;
+`
 
 const App = () => {
-  const [lastSentences, setLastSentences] = useState([]);
-  const [originalSentence, setOriginalSentence] = useState('');
-  const [originalSentenceInputNode, setOriginalSentenceInputNode] = useState(undefined);
-  const [isLoadingLastSentences, setLoadingStateLastSentences] = useState(true);
-  const [isFlipping, setFlippingState] = useState(false);
-  const [flippedSentence, setFlippedSentence] = useState(undefined);
-  const [errorMessage, setErrorMessage] = useState(undefined);
+  const [lastSentences, setLastSentences] = useState([])
+  const [originalSentence, setOriginalSentence] = useState('')
+  const [originalSentenceInputNode, setOriginalSentenceInputNode] = useState(undefined)
+  const [isLoadingLastSentences, setLoadingStateLastSentences] = useState(true)
+  const [isFlipping, setFlippingState] = useState(false)
+  const [flippedSentence, setFlippedSentence] = useState(undefined)
+  const [errorMessage, setErrorMessage] = useState(undefined)
 
   const refInputNode = useCallback((inputNode) => {
-    setOriginalSentenceInputNode(inputNode);
-  }, []);
+    setOriginalSentenceInputNode(inputNode)
+  }, [])
 
-  const originalSentenceChangedAction = useCallback((value) => setOriginalSentence(value), []);
+  const originalSentenceChangedAction = useCallback((value) => setOriginalSentence(value), [])
   const flipAction = useCallback(() => {
-    setFlippingState(true);
+    setFlippingState(true)
 
     flip(originalSentence).then((data) => {
-      setOriginalSentence('');
+      setOriginalSentence('')
 
-      if (flippedSentence !== undefined) setLastSentences([flippedSentence, ...lastSentences].slice(0, MAX_SENTENCE_COUNT));
-      setFlippedSentence(data);
+      if (flippedSentence !== undefined) setLastSentences([flippedSentence, ...lastSentences].slice(0, MAX_SENTENCE_COUNT))
+      setFlippedSentence(data)
 
-      originalSentenceInputNode.current.focus();
+      originalSentenceInputNode.current.focus()
     }).catch(({ error }) => {
-      setErrorMessage(error || API_OFFLINE_MESSAGE);
+      setErrorMessage(error || API_OFFLINE_MESSAGE)
     }).finally(() => {
-      setFlippingState(false);
-    });
-  }, [originalSentence, originalSentenceInputNode, lastSentences, flippedSentence]);
+      setFlippingState(false)
+    })
+  }, [originalSentence, originalSentenceInputNode, lastSentences, flippedSentence])
 
   useEffect(() => {
     getLastSentences().then((data) => {
-      setErrorMessage(undefined);
-      setLastSentences(data.slice(0, MAX_SENTENCE_COUNT));
+      setErrorMessage(undefined)
+      setLastSentences(data.slice(0, MAX_SENTENCE_COUNT))
     }).catch(({ error }) => {
-      setErrorMessage(error || API_OFFLINE_MESSAGE);
+      setErrorMessage(error || API_OFFLINE_MESSAGE)
     }).finally(() => {
-      setLoadingStateLastSentences(false);
-    });
-  }, []);
+      setLoadingStateLastSentences(false)
+    })
+  }, [])
 
   return (
       <$App>
@@ -166,7 +166,7 @@ const App = () => {
           <LastSentences sentences={lastSentences} flippedSentenceId={flippedSentence && flippedSentence.id} />
         </$LastSentencesContainer>
       </$App>
-  );
-};
+  )
+}
 
-export default App;
+export default App

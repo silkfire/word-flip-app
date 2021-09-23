@@ -1,11 +1,11 @@
-const webpack = require('webpack');
-const { merge } = require('webpack-merge');
+import webpack from 'webpack'
+import { merge } from 'webpack-merge'
 
-const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 
-const common = require('./webpack.common');
+import common from './webpack.common'
 
-module.exports = merge(common, {
+export default merge(common, {
   mode: 'development',
   entry: {
     app: ['webpack-hot-middleware/client'],
@@ -49,4 +49,4 @@ module.exports = merge(common, {
     new ReactRefreshPlugin(),
   ],
   devtool: 'inline-source-map',
-});
+})

@@ -1,46 +1,114 @@
 {
-    "env": {
-        "browser": true,
-        "es6": true,
-        "node": true
-    },
-    "extends": [
-        "airbnb-base"
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "modules": true
+    }
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/recommended"
+  ],
+  "rules": {
+    "curly": [
+      "error",
+      "multi"
     ],
-    "parserOptions": {
-        "ecmaVersion": 2020,
-        "sourceType": "module",
-        "ecmaFeatures": {
-            "jsx": true,
-            "modules": true
-        }
+    "linebreak-style": [
+      "error",
+      "windows"
+    ],
+    "max-len": [
+      "error",
+      {
+        "code": 140,
+        "ignoreTemplateLiterals": true,
+        "ignoreComments": true
+      }
+    ],
+    "no-empty": [
+      "error",
+      {
+        "allowEmptyCatch": true
+      }
+    ],
+    "no-multiple-empty-lines": "error",
+    "arrow-parens": [
+      "error",
+      "always"
+    ],
+    "semi": [
+      "error",
+      "never",
+      {
+        "beforeStatementContinuationChars": "never"
+      }
+    ],
+    "semi-spacing": "error"
+  },
+  "overrides": [
+    // Node.js + Webpack
+    {
+      "files": [
+        "*.js",
+        "build/*.js"
+      ],
+      "rules": {
+        "quotes": [
+          "error",
+          "single"
+        ]
+      }
     },
-    "plugins": [
+    // React (.jsx)
+    {
+      "files": [
+        "src/**/*.jsx",
+        "src/**/*.js"
+      ],
+      "env": {
+        "browser": true
+      },
+      "parserOptions": {
+        "ecmaFeatures": {
+          "jsx": true
+        }
+      },
+      "plugins": [
         "react",
         "react-hooks"
       ],
-    "rules": {
-        "curly": ["error", "multi"],
-        "linebreak-style": ["error", "windows"],
-        "no-console": "off",
-        "no-unused-vars": "off",
-        "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
-        "import/prefer-default-export": "off",
-        "max-len": ["error", { "code": 140, "ignoreTemplateLiterals": true, "ignoreComments": true }],
-        "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+      "rules": {
+        "quotes": [
+          "error",
+          "single",
+          {
+            "allowTemplateLiterals": true
+          }
+        ],
+        "import/no-named-as-default-member": "off",
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error",
-        "react-hooks/rules-of-hooks": "error",      // Checks rules of Hooks
-        "react-hooks/exhaustive-deps": "warn"       // Checks effect dependencies
-    },
-    "settings": {
+        "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+        "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
+      },
+      "settings": {
         "import/resolver": {
-            "node": {
-                "extensions": [".js", ".jsx"]
-            },
-            "webpack": {
-                "config": "./build/webpack.common.js"
-            }
+          "alias": {
+            "map": [
+              [ "~", "./src" ]
+            ]
+          },
+          "node": {
+            "extensions": [ ".js", ".jsx" ]
+          }
         }
+      }
     }
+  ]
 }

@@ -1,9 +1,9 @@
-import { memo } from 'react';
-import dateFormat from 'date-fns/format';
-import styled from 'styled-components';
+import { memo } from 'react'
+import dateFormat from 'date-fns/format'
+import styled from 'styled-components'
 
-import ReactTimeAgo from 'react-time-ago';
-import JTADefaultStyle from '~/shared/jta';
+import ReactTimeAgo from 'react-time-ago'
+import JTADefaultStyle from '~/shared/jta'
 
 const $SentenceList = styled.div`
   margin: 8px auto 0;
@@ -15,7 +15,7 @@ const $SentenceList = styled.div`
   @media only screen and (min-width: 48em) {
     padding: 0 4px;
   }
-`;
+`
 
 const $Sentence = styled.div`
   padding: 12px 10px;
@@ -31,7 +31,7 @@ const $Sentence = styled.div`
     padding: 15px 0;
     border-bottom: 1px solid #f0edea;
   }
-`;
+`
 
 const $CreatedTimestamp = styled(ReactTimeAgo)`
   color: #bdbdbd;
@@ -75,7 +75,7 @@ const $CreatedTimestamp = styled(ReactTimeAgo)`
       }
     }
   }
-`;
+`
 
 function LastSentences({ sentences }) {
   return (
@@ -89,13 +89,13 @@ function LastSentences({ sentences }) {
                                     </div>
                                  </$Sentence>))}
       </$SentenceList>
-  );
+  )
 }
 
 export default memo(LastSentences,
   (prevProps, nextProps) => {
-    if (nextProps.sentences.length === 0) return true;
-    if (prevProps.sentences.length === 0) return false;
+    if (nextProps.sentences.length === 0) return true
+    if (prevProps.sentences.length === 0) return false
 
-    return prevProps.flippedSentenceId === nextProps.flippedSentenceId;
-  });
+    return prevProps.flippedSentenceId === nextProps.flippedSentenceId
+  })

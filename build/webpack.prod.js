@@ -1,13 +1,13 @@
-const TerserPlugin = require('terser-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin');
+import TerserPlugin from 'terser-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import CssMinimizerWebpackPlugin from 'css-minimizer-webpack-plugin'
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const CompressionPlugin = require('compression-webpack-plugin');
+import CompressionPlugin from 'compression-webpack-plugin'
 
-const { merge } = require('webpack-merge');
-const common = require('./webpack.common');
+import { merge } from 'webpack-merge'
+import common from './webpack.common.js'
 
-module.exports = merge(common, {
+export default merge(common, {
   mode: 'production',
   output: {
     filename: '[name].[contenthash:12].js',
@@ -36,10 +36,6 @@ module.exports = merge(common, {
             loader: 'babel-loader',
             options: {
               envName: 'production',
-              plugins: [
-                '@babel/plugin-transform-runtime',
-                ['babel-plugin-styled-components', { pure: true, fileName: false, displayName: false }],
-              ],
             },
           },
         ],
@@ -58,10 +54,10 @@ module.exports = merge(common, {
             // console.log(module.context.match(/[\\/]node_modules[\\/](@babel|scheduler|object-assign|regenerator-runtime|prop-types)/));
 
             // eslint-disable-next-line max-len
-            if (module.context.match(/@babel|@emotion|scheduler|object-assign|regenerator-runtime|prop-types|styled-components|shallowequal/)) return 'core';
-            if (module.context.match(/react([\\]|-dom|-hot-loader)/)) return 'react';
+            if (module.context.match(/@babel|@emotion|scheduler|object-assign|regenerator-runtime|prop-types|styled-components|shallowequal/)) return 'core'
+            if (module.context.match(/react([\\]|-dom|-hot-loader)/)) return 'react'
             // if (module.context.match(/[\\/]node_modules[\\/]sanitize\.css/)) return 'sanitize';
-            return 'vendor';
+            return 'vendor'
           },
         },
       },
@@ -114,4 +110,4 @@ module.exports = merge(common, {
 
     // new BundleAnalyzerPlugin(),
   ],
-});
+})
