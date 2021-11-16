@@ -15,40 +15,13 @@
     "plugin:import/recommended"
   ],
   "rules": {
-    "curly": [
-      "error",
-      "multi"
-    ],
-    "linebreak-style": [
-      "error",
-      "windows"
-    ],
-    "max-len": [
-      "error",
-      {
-        "code": 140,
-        "ignoreTemplateLiterals": true,
-        "ignoreComments": true
-      }
-    ],
-    "no-empty": [
-      "error",
-      {
-        "allowEmptyCatch": true
-      }
-    ],
+    "curly": [ "error", "multi" ],
+    "linebreak-style": [ "error", "windows" ],
+    "max-len": [ "error", { "code": 140, "ignoreTemplateLiterals": true, "ignoreComments": true } ],
+    "no-empty": [ "error", { "allowEmptyCatch": true } ],
     "no-multiple-empty-lines": "error",
-    "arrow-parens": [
-      "error",
-      "always"
-    ],
-    "semi": [
-      "error",
-      "never",
-      {
-        "beforeStatementContinuationChars": "never"
-      }
-    ],
+    "arrow-parens": [ "error", "always" ],
+    "semi": [ "error", "never", { "beforeStatementContinuationChars": "never" } ],
     "semi-spacing": "error"
   },
   "overrides": [
@@ -59,10 +32,7 @@
         "build/*.js"
       ],
       "rules": {
-        "quotes": [
-          "error",
-          "single"
-        ]
+        "quotes": [ "error", "single" ]
       }
     },
     // React (.jsx)
@@ -84,13 +54,8 @@
         "react-hooks"
       ],
       "rules": {
-        "quotes": [
-          "error",
-          "single",
-          {
-            "allowTemplateLiterals": true
-          }
-        ],
+        "quotes": [ "error", "single", { "allowTemplateLiterals": true } ],
+        "import/extensions": [ "error" ],
         "import/no-named-as-default-member": "off",
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error",
