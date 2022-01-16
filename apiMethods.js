@@ -1,5 +1,5 @@
 import https from 'https'
-import axios from 'axios-is-buffer-removed'
+import axios from 'axios'
 
 if (process.env.API_URL === undefined)
   throw new Error('API endpoint missing. Make sure the environment variable \'API_URL\' has been properly set.')
