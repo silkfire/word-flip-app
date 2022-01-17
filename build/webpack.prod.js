@@ -18,7 +18,7 @@ export default merge(common, {
         test: /\.css$/,
         use: [
           // Inject the CSS bundle at the bottom of the <head> tag of index.html
-          MiniCssExtractPlugin.default.loader,
+          MiniCssExtractPlugin.loader,
 
           // Parses CSS files into JS objects (used as input for MiniCssExtractPlugin)
           'css-loader',
@@ -85,7 +85,7 @@ export default merge(common, {
   },
   plugins: [
     // Persist CSS modules to individual files
-    new MiniCssExtractPlugin.default({
+    new MiniCssExtractPlugin({
       filename: ({ chunk: { name } }) => `${name === 'vendor' ? 'sanitize' : '[name]'}.[contenthash:12].css`,
     }),
 
