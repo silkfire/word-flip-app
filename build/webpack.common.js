@@ -2,7 +2,8 @@
 
 import path from 'path'
 import { fileURLToPath } from 'url'
-import CopyWebpackPlugin from 'copy-webpack-plugin'
+// eslint-disable-next-line import/default
+import CopyPlugin from 'copy-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 // const dotenv = require('dotenv-webpack');
@@ -36,7 +37,7 @@ export default {
     ],
   },
   plugins: [
-    new CopyWebpackPlugin({
+    new CopyPlugin({
       patterns: [
         { from: pathJoinUnix(srcPath, 'favicon.*'), to: `${distPath}/[name][ext]` },
       ],
