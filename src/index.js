@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import JavascriptTimeAgo from 'javascript-time-ago'
 
 import en from 'javascript-time-ago/locale/en'
@@ -9,4 +9,7 @@ JavascriptTimeAgo.addLocale(en)
 
 // console.log(process.env.NODE_ENV);
 
-ReactDOM.render(<App/>, document.getElementsByTagName('main')[0])
+const container = document.getElementsByTagName('main')[0]
+const root = createRoot(container)
+
+root.render(<App />, root)
