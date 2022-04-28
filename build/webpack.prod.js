@@ -1,6 +1,6 @@
 import TerserPlugin from 'terser-webpack-plugin'
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import CssMinimizerWebpackPlugin from 'css-minimizer-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 import CompressionPlugin from 'compression-webpack-plugin'
 
