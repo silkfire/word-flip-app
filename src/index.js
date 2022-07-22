@@ -12,4 +12,4 @@ JavascriptTimeAgo.addLocale(en)
 const container = document.getElementsByTagName('main')[0]
 const root = createRoot(container)
 
-root.render(<App />, root)
+root.render(<App />)

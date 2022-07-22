@@ -4,11 +4,11 @@ const app = express()
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
-import webpackConfig from './build/webpack.dev'
+import webpackConfig from './build/webpack.dev.js'
 
 const compiler = webpack(webpackConfig)
 
-import { getLastSentencesRequest, flipRequest } from './apiMethods'
+import { getLastSentencesRequest, flipRequest } from './apiMethods.js'
 
 app.use(webpackDevMiddleware(compiler))
 app.use(webpackHotMiddleware(compiler))

@@ -1,10 +1,24 @@
-import defaultStyle from 'javascript-time-ago/commonjs/style/miniMinuteNow'
-
-const { default: { steps } } = defaultStyle
-const JTADefaultStyle = {
+export default {
   round: 'floor',
   labels: ['tiny'],
-  steps,
+  steps: [
+    {
+      formatAs: 'now'
+    },
+    {
+      formatAs: 'minute'
+    },
+    {
+      formatAs: 'hour'
+    },
+    {
+      formatAs: 'day'
+    },
+    {
+      formatAs: 'month'
+    },
+    {
+      formatAs: 'year'
+    }
+  ],
 }
-
-export default JTADefaultStyle

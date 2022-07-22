@@ -4,7 +4,7 @@ import express, { json } from 'express'
 
 const app = express()
 
-import { getLastSentencesRequest, flipRequest } from './apiMethods'
+import { getLastSentencesRequest, flipRequest } from './apiMethods.js'
 
 const distDirectory = join(dirname(fileURLToPath(import.meta.url)), 'dist')
 

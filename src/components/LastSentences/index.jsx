@@ -3,7 +3,7 @@ import dateFormat from 'date-fns/format'
 import styled from 'styled-components'
 
 import ReactTimeAgo from 'react-time-ago'
-import JTADefaultStyle from '~/shared/jta'
+import jtaStyle from '~/shared/jtaStyle'
 
 const $SentenceList = styled.div`
   margin: 8px auto 0;
@@ -83,7 +83,7 @@ function LastSentences({ sentences }) {
           {sentences.map((s) => (<$Sentence key={s.id}>
                                     <$CreatedTimestamp date={new Date(s.created)}
                                                        formatVerboseDate={() => dateFormat(new Date(s.created), 'yyyy-MM-dd HH:mm:ss XXX')}
-                                                       timeStyle={JTADefaultStyle} />
+                                                       timeStyle={jtaStyle} />
                                     <div>
                                       {s.value}
                                     </div>
