@@ -34,7 +34,7 @@
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.1",
     "css-minimizer-webpack-plugin": "^4.0.0",
-    "date-fns": "^2.29.1",
+    "date-format": "^4.0.13",
     "eslint": "^8.20.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.26.0",
@@ -54,6 +54,7 @@
     "terser-webpack-plugin": "^5.3.3",
     "webpack": "^5.73.0",
     "webpack-cli": "^4.10.0",
+    "webpack-bundle-analyzer": "^4.5.0",
     "webpack-dev-middleware": "^5.3.3",
     "webpack-hot-middleware": "^2.25.1",
     "webpack-merge": "^5.8.0"

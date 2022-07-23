@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import dateFormat from 'date-fns/format'
+import dateFormat from 'date-format'
 import styled from 'styled-components'
 
 import ReactTimeAgo from 'react-time-ago'
@@ -82,7 +82,7 @@ function LastSentences({ sentences }) {
       <$SentenceList sentences={sentences}>
           {sentences.map((s) => (<$Sentence key={s.id}>
                                     <$CreatedTimestamp date={new Date(s.created)}
-                                                       formatVerboseDate={() => dateFormat(new Date(s.created), 'yyyy-MM-dd HH:mm:ss XXX')}
+                                                       formatVerboseDate={() => dateFormat('yyyy-MM-dd hh:mm:ss O', new Date(s.created))}
                                                        timeStyle={jtaStyle} />
                                     <div>
                                       {s.value}

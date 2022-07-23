@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import dateFormat from 'date-fns/format'
+import dateFormat from 'date-format'
 import styled from 'styled-components'
 
 import ReactTimeAgo from 'react-time-ago'
@@ -43,7 +43,7 @@ function FlippedSentence({ sentence: { id, value, created } = {}, className }) {
     const createdDateTime = new Date(created)
 
     createdTimestamp = <$CreatedTimestamp date={createdDateTime}
-                                          formatVerboseDate={() => dateFormat(createdDateTime, 'yyyy-MM-dd HH:mm:ss XXX')}
+                                          formatVerboseDate={() => dateFormat('yyyy-MM-dd hh:mm:ss O', createdDateTime)}
                                           timeStyle={jtaStyle} />
   }
 
