@@ -9,13 +9,13 @@ WORKDIR /root
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
 
-RUN npm i
+RUN npm ci
 
 # Copy the source, configuration and server files
 COPY . ./
 
 # Build and bundle the source files
-RUN npm run build
+RUN npm run build:prod
 
 
 
@@ -28,7 +28,7 @@ WORKDIR /app
 # Install app dependencies
 COPY --from=builder /root/package*.json ./
 
-RUN npm install --only=production
+RUN npm ci --omit=dev
 
 # Copy the server files to the new image
 COPY --from=builder /root/server.js /root/apiMethods.js ./
