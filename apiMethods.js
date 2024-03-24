@@ -15,7 +15,7 @@ https.globalAgent.options.rejectUnauthorized = false
 const successResponse = (res, { data }) => res.json(data)
 
 const errorResponse = (res, error) => res.status((error.response && error.response.status) || 503).json({
-  error: (error.response && 'Failed connecting to the WebFlip API.') || 'WordFlip API service offline.',
+  error: (error.response && 'Failed connecting to the WebFlip API.') || 'The WordFlip API service is currently offline.',
 })
 
 const executeRequest = (requestFunc, res) => requestFunc().then((response) => successResponse(res, response))

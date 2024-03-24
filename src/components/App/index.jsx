@@ -14,7 +14,6 @@ import FlippedSentence from '../FlippedSentence'
 import LastSentencesLoader from '../Loader'
 import LastSentences from '../LastSentences'
 
-const API_OFFLINE_MESSAGE = 'WordFlip API service offline.'
 const MAX_SENTENCE_COUNT = 10
 
 const $App = styled.div`
@@ -114,7 +113,7 @@ const App = () => {
 
       originalSentenceInputNode.current.focus()
     }).catch(({ error }) => {
-      setErrorMessage(error || API_OFFLINE_MESSAGE)
+      setErrorMessage(error)
     }).finally(() => {
       setFlippingState(false)
     })
@@ -125,7 +124,7 @@ const App = () => {
       setErrorMessage(undefined)
       setLastSentences(data.slice(0, MAX_SENTENCE_COUNT))
     }).catch(({ error }) => {
-      setErrorMessage(error || API_OFFLINE_MESSAGE)
+      setErrorMessage(error)
     }).finally(() => {
       setLoadingStateLastSentences(false)
     })
