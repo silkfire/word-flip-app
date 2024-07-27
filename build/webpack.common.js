@@ -5,7 +5,6 @@ import { fileURLToPath } from 'url'
 // eslint-disable-next-line import/default
 import CopyPlugin from 'copy-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 // const dotenv = require('dotenv-webpack');
 
 const pathJoinUnix = (...arg) => path.join(...arg).replace(/\\/g, '/')
@@ -21,6 +20,7 @@ export default {
   output: {
     path: distPath,
     filename: '[name].bundle.js',
+    clean: true
   },
   module: {
     rules: [
@@ -52,7 +52,6 @@ export default {
       scriptLoading: 'defer',
       inject: 'body',
     }),
-    new CleanWebpackPlugin(),
 
     // Load environment variables from .env
     // new dotenv()

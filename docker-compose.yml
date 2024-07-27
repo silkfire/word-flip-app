@@ -1,30 +1,29 @@
-version: "3"
 services:
-    server:
-        build:
-          context: ../word-flip-app/
-          dockerfile: Dockerfile
-        image: silkfire/word-flip-app:1.0
-        container_name: server
-        ports:
-            - "3000:3000"
-        depends_on:
-            - api
-        # Specify the URL to the web API and default port to run the app server on
-        environment: 
-            - API_URL=http://api:8080
-            - PORT=3000
-    api:
-        build:
-          context: ../WordFlip.Api/
-          dockerfile: Dockerfile-api
-        image: silkfire/word-flip-api:1.0
-        container_name: api
-        depends_on:
-            - db
-    db:
-        build:
-          context: ../WordFlip.Api/
-          dockerfile: Dockerfile-db
-        image: silkfire/word-flip-api-db:1.0
-        container_name: db
+  server:
+    build:
+      context: ../word-flip-app/
+      dockerfile: Dockerfile
+    image: silkfire/word-flip-app:1.0
+    container_name: server
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+    # Specify the URL to the web API and default port to run the app server on
+    environment:
+      - API_URL=http://api:8080
+      - PORT=3000
+  api:
+    build:
+      context: ../WordFlip.Api/
+      dockerfile: Dockerfile-api
+    image: silkfire/word-flip-api:1.0
+    container_name: api
+    depends_on:
+      - db
+  db:
+    build:
+      context: ../WordFlip.Api/
+      dockerfile: Dockerfile-db
+    image: silkfire/word-flip-api-db:1.0
+    container_name: db
