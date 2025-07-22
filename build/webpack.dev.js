@@ -38,6 +38,7 @@ export default merge(common, {
             loader: 'babel-loader',
             options: {
               envName: 'development',
+              plugins: ['react-refresh/babel'],
             },
           },
         ],
@@ -46,7 +47,11 @@ export default merge(common, {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new ReactRefreshPlugin(),
+    new ReactRefreshPlugin({
+      overlay: {
+        sockIntegration: 'whm',
+      },
+    }),
   ],
   devtool: 'inline-source-map',
 })
