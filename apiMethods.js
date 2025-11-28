@@ -1,25 +1,46 @@
-import https from 'https'
-import axios from 'axios'
-
 if (process.env.API_URL === undefined)
   throw new Error('API endpoint missing. Make sure the environment variable \'API_URL\' has been properly set.')
 
 const API_ENDPOINT = `${process.env.API_URL}/api/flip`
-const options = {
-  timeout: 1500,
-  agent: new https.Agent({ rejectUnauthorized: false })
+
+const executeRequest = async (requestPromise, reply) => {
+  try {
+    const response = await requestPromise
+
+    if (!response.ok) {
+      return reply.code(response.status).send({
+        error: 'Failed connecting to the WebFlip API.'
+      })
+    }
+
+    const data = await response.json()
+    return reply.send(data)
+  } catch (error) {
+    return reply.code(503).send({
+      error: 'The WordFlip API service is currently offline.',
+    })
+  }
 }
 
-https.globalAgent.options.rejectUnauthorized = false
-
-const successResponse = (res, { data }) => res.json(data)
-
-const errorResponse = (res, error) => res.status((error.response && error.response.status) || 503).json({
-  error: (error.response && 'Failed connecting to the WebFlip API.') || 'The WordFlip API service is currently offline.',
+const fetchOptions = (options = {}) => ({
+  ...options,
+  signal: AbortSignal.timeout(1500)
 })
 
-const executeRequest = (requestFunc, res) => requestFunc().then((response) => successResponse(res, response))
-  .catch((error) => errorResponse(res, error))
+export function getLastSentencesRequest(request, reply) {
+  return executeRequest(
+    fetch(`${API_ENDPOINT}/getLastSentences`, fetchOptions()),
+    reply
+  )
+}
 
-export function getLastSentencesRequest(req, res) { return executeRequest(() => axios.get(`${API_ENDPOINT}/getLastSentences`, options), res) }
-export function flipRequest(req, res) { return executeRequest(() => axios.post(API_ENDPOINT, req.body, options), res) }
+export function flipRequest(request, reply) {
+  return executeRequest(
+    fetch(API_ENDPOINT, fetchOptions({
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(request.body)
+    })),
+    reply
+  )
+}

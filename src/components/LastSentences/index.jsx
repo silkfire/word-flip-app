@@ -79,7 +79,7 @@ const $CreatedTimestamp = styled(ReactTimeAgo)`
 
 function LastSentences({ sentences }) {
   return (
-      <$SentenceList sentences={sentences}>
+      <$SentenceList $sentences={sentences}>
           {sentences.map((s) => (<$Sentence key={s.id}>
                                     <$CreatedTimestamp date={new Date(s.created)}
                                                        formatVerboseDate={() => dateFormat('yyyy-MM-dd hh:mm:ss O', new Date(s.created))}

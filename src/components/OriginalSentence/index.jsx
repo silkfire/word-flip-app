@@ -31,7 +31,8 @@ export default function OriginalSentence({ value, onChangeAction, refInputNode }
   useEffect(() => refInputNode(inputNode), [refInputNode])
 
   return (
-    <$OriginalSentence rows="10"
+    <$OriginalSentence id="original-sentence"
+                       rows="10"
                        autoFocus
                        placeholder="Type a sentence here"
                        value={value}
