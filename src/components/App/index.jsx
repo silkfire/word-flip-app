@@ -120,11 +120,17 @@ const App = () => {
   }, [originalSentence, originalSentenceInputNode, lastSentences, flippedSentence])
 
   useEffect(() => {
+    if (!import.meta.env.VITE_API_URL) {
+      const errorMessage = import.meta.env.DEV ? 'Environment variable VITE_API_URL is not defined, please set it in your .env file' : 'Failed to locate API endpoint';
+
+      throw new Error(errorMessage);
+    }
+
     getLastSentences().then((data) => {
       setErrorMessage(undefined)
       setLastSentences(data.slice(0, MAX_SENTENCE_COUNT))
-    }).catch(({ error }) => {
-      setErrorMessage(error)
+    }).catch(() => {
+      setErrorMessage('The WordFlip API service is currently offline.')
     }).finally(() => {
       setLoadingStateLastSentences(false)
     })

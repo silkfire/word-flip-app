@@ -12,6 +12,7 @@ const $Button = styled.div`
   letter-spacing: 0.04em;
   text-transform: uppercase;
   float: right;
+  user-select: none;
 
   ${({ $disabled }) => (!$disabled && `
     &:hover {

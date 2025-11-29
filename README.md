@@ -12,7 +12,7 @@ $ git clone https://github.com/silkfire/WordFlip.Api.git
 $ git clone https://github.com/silkfire/word-flip-app.git
 ```
 
-The default address to the API from the app server container is `http://api:8080` but this can be tailored to suit your particular requirements in the `docker-compose.yml` file by changing the `API_URL` environment variable. 
+The default address to the API from the app server container is `http://api:8080` but this can be tailored to suit your particular requirements in the `docker-compose.yml` file by changing the `VITE_API_URL` environment variable. 
 
 Run the Composer to build the images of the web API, database and the client, respectively:
 

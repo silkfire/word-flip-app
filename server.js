@@ -4,21 +4,9 @@ import Fastify from 'fastify'
 import fastifyStatic from '@fastify/static'
 import fastifyCompress from '@fastify/compress'
 
-import { getLastSentencesRequest, flipRequest } from './apiMethods.js'
-
-const isDev = process.env.NODE_ENV !== 'production'
-
 const fastify = Fastify({
   disableRequestLogging: true,
-  logger: isDev ? {
-    transport: {
-      target: 'pino-pretty',
-      options: {
-        translateTime: 'HH:MM:ss Z',
-        ignore: 'pid,hostname',
-      },
-    },
-  } : true
+  logger: true
 })
 
 const distDirectory = join(dirname(fileURLToPath(import.meta.url)), 'dist')
@@ -28,10 +16,6 @@ fastify.register(fastifyCompress)
 fastify.register(fastifyStatic, {
   root: distDirectory
 })
-
-// API Routes
-fastify.get('/getLastSentences', getLastSentencesRequest)
-fastify.post('/flip', flipRequest)
 
 // Start server
 try {
