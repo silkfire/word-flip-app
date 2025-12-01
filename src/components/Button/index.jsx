@@ -3,6 +3,8 @@ import styled from 'styled-components'
 
 const $Button = styled.div`
   font-family: 'Open Sans', sans-serif;
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
 
   background-color: #f2625a;
   transition: all 0.25s;

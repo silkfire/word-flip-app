@@ -2,8 +2,9 @@ import { memo } from 'react'
 import styled from 'styled-components'
 
 const $ErrorMessage = styled.div`
-  font-family: 'Varela Round', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 14px;
+  font-optical-sizing: auto;
   color: #d80000;
 `
 
