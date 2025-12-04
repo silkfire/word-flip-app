@@ -1,4 +1,6 @@
+// @ts-check
 const fetchWrapper = async (url, options) => {
+  // const x = import.meta.env.VITE_API_URLX
   const baseUrl = import.meta.env.VITE_API_URL
 
   const response = await fetch(`${baseUrl}${url}`, { ...options, signal: AbortSignal.timeout(800) })
