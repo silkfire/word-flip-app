@@ -8,7 +8,12 @@ const $ErrorMessage = styled.div`
   color: #d80000;
 `
 
-function ErrorMessage({ message, className }) {
+interface ErrorMessageProps {
+  message?: string;
+  className?: string;
+}
+
+function ErrorMessage({ message, className }: ErrorMessageProps) {
   return (
     <$ErrorMessage className={className}>{message}</$ErrorMessage>
   )

@@ -4,7 +4,7 @@ import { memo } from 'react'
 
 import styled, { keyframes } from 'styled-components'
 
-const $Loader = styled.div`
+const $Loader = styled.div<{ $color?: string }>`
   display: inline-block;
   position: relative;
   width: 80px;
@@ -75,7 +75,12 @@ const $Element4 = styled($Element)`
   animation: ${loader3} 0.6s infinite;
 `
 
-function Loader({ color, className }) {
+interface LoaderProps {
+  color?: string;
+  className?: string;
+}
+
+function Loader({ color, className }: LoaderProps) {
   return (
     <$Loader $color={color} className={className}>
         <$Element1 key="1"/>

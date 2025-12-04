@@ -1,7 +1,7 @@
-import { memo } from 'react'
+import { memo, MouseEvent } from 'react'
 import styled from 'styled-components'
 
-const $Button = styled.div`
+const $Button = styled.div<{ $disabled?: boolean }>`
   font-family: 'Open Sans', sans-serif;
   font-optical-sizing: auto;
   font-variation-settings: "wdth" 100;
@@ -24,10 +24,17 @@ const $Button = styled.div`
   `) || 'background-color: #c3c3c3;'}
 `
 
+interface ButtonProps {
+  onClick: (e: MouseEvent<HTMLDivElement>) => void;
+  disabled?: boolean;
+  text: string;
+  className?: string;
+}
+
 function Button({
   onClick, disabled, text, className,
-}) {
-  const onClickAction = (e) => {
+}: ButtonProps) {
+  const onClickAction = (e: MouseEvent<HTMLDivElement>) => {
     if (!disabled) onClick(e)
   }
 

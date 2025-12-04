@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef, useCallback, ChangeEvent } from 'react'
 import styled from 'styled-components'
 
 const $OriginalSentence = styled.textarea`
@@ -21,18 +21,24 @@ const $OriginalSentence = styled.textarea`
   }
 `
 
-export default function OriginalSentence({ value, onChangeAction, refInputNode }) {
-  const onChangeActionWrapper = useCallback((e) => {
+interface OriginalSentenceProps {
+  value: string;
+  onChangeAction: (value: string) => void;
+  refInputNode: (node: React.RefObject<HTMLTextAreaElement | null>) => void;
+}
+
+export default function OriginalSentence({ value, onChangeAction, refInputNode }: OriginalSentenceProps) {
+  const onChangeActionWrapper = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
     onChangeAction(e.target.value)
   }, [onChangeAction])
 
-  const inputNode = useRef()
+  const inputNode = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => refInputNode(inputNode), [refInputNode])
 
   return (
     <$OriginalSentence id="original-sentence"
-                       rows="10"
+                       rows={10}
                        autoFocus
                        placeholder="Type a sentence here"
                        value={value}

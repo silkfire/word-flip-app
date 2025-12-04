@@ -10,6 +10,10 @@ const $Spinner = styled.div`
   height: 45px;
 `
 
-const Spinner = ({ className }) => <$Spinner className={className} />
+interface SpinnerProps {
+  className?: string;
+}
+
+const Spinner = ({ className }: SpinnerProps) => <$Spinner className={className} />
 
 export default memo(Spinner, () => true)

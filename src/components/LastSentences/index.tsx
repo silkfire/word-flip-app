@@ -3,14 +3,20 @@ import { format } from 'date-fns'
 import styled from 'styled-components'
 
 import ReactTimeAgo from 'react-time-ago'
-import jtaStyle from '~/shared/jtaStyle'
+import jtaStyle from '@/shared/jtaStyle'
 
-const $SentenceList = styled.div`
+interface Sentence {
+  id: string;
+  value: string;
+  created: string;
+}
+
+const $SentenceList = styled.div<{ $sentences?: Sentence[] }>`
   margin: 8px auto 0;
 
   font-family: 'Lato', sans-serif;
   transition-duration: 0.3s;
-  opacity: ${({ sentences }) => +!!(sentences && sentences.length > 0)};
+  opacity: ${({ $sentences }) => +!!($sentences && $sentences.length > 0)};
 
   @media only screen and (min-width: 48em) {
     padding: 0 4px;
@@ -77,7 +83,12 @@ const $CreatedTimestamp = styled(ReactTimeAgo)`
   }
 `
 
-function LastSentences({ sentences }) {
+interface LastSentencesProps {
+  sentences: Sentence[];
+  flippedSentenceId?: string;
+}
+
+function LastSentences({ sentences }: LastSentencesProps) {
   return (
       <$SentenceList $sentences={sentences}>
           {sentences.map((s) => (<$Sentence key={s.id}>

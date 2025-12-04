@@ -3,7 +3,7 @@ import { format } from 'date-fns'
 import styled from 'styled-components'
 
 import ReactTimeAgo from 'react-time-ago'
-import jtaStyle from '~/shared/jtaStyle'
+import jtaStyle from '@/shared/jtaStyle'
 
 const $FlippedSentence = styled.div`
   font-family: 'Lato', sans-serif;
@@ -36,10 +36,22 @@ const $CreatedTimestamp = styled(ReactTimeAgo)`
   }
 `
 
-function FlippedSentence({ sentence: { id, value, created } = {}, className }) {
+interface Sentence {
+  id: string;
+  value: string;
+  created: string;
+}
+
+interface FlippedSentenceProps {
+  sentence?: Sentence;
+  className?: string;
+}
+
+function FlippedSentence({ sentence, className }: FlippedSentenceProps) {
+  const { id, value, created } = sentence || {};
   let createdTimestamp
 
-  if (id !== undefined) {
+  if (id !== undefined && created !== undefined) {
     const createdDateTime = new Date(created)
 
     createdTimestamp = <$CreatedTimestamp date={createdDateTime}

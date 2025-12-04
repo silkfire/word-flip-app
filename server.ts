@@ -19,8 +19,8 @@ fastify.register(fastifyStatic, {
 
 // Start server
 try {
-  const port = process.env.PORT || 3000
-  const host = process.env.HOST || '127.0.0.1'
+  const port = import.meta.env.PORT || 3000
+  const host = import.meta.env.HOST || '127.0.0.1'
   fastify.listen({ port, host })
 } catch (err) {
   fastify.log.error(err)

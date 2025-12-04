@@ -2,9 +2,9 @@ import { useState, useEffect, useCallback } from 'react'
 
 import 'sanitize.css'
 import styled from 'styled-components'
-import { $FadeWrapper } from '~/shared/styles'
+import { $FadeWrapper } from '@/shared/styles'
 
-import { flip, getLastSentences } from '~/shared/api'
+import { flip, getLastSentences } from '@/shared/api'
 
 import OriginalSentence from '../OriginalSentence'
 import FlipButton from '../Button'
@@ -15,6 +15,12 @@ import LastSentencesLoader from '../Loader'
 import LastSentences from '../LastSentences'
 
 const MAX_SENTENCE_COUNT = 10
+
+interface Sentence {
+  id: string;
+  value: string;
+  created: string;
+}
 
 const $App = styled.div`
   margin: 0 auto;
@@ -54,12 +60,12 @@ const $FlipButton = styled(FlipButton)`
   width: 80px;
 `
 
-const $FlippedSentenceContainer = styled.div`
+const $FlippedSentenceContainer = styled.div<{ $isVisible?: boolean }>`
   height: ${({ $isVisible }) => ($isVisible ? 'auto' : 0)};
   overflow: hidden;
 `
 
-const $FlippedSentenceWrapper = styled(FlippedSentence)`
+const $FlippedSentenceWrapper = styled(FlippedSentence)<{ $isVisible?: boolean }>`
   transition: transform 0.25s ease-in-out;
   transform: translateY(-25%);
   
@@ -89,30 +95,30 @@ const $LastSentencesLoaderWrapper = styled($FadeWrapper)`
 `
 
 const App = () => {
-  const [lastSentences, setLastSentences] = useState([])
+  const [lastSentences, setLastSentences] = useState<Sentence[]>([])
   const [originalSentence, setOriginalSentence] = useState('')
-  const [originalSentenceInputNode, setOriginalSentenceInputNode] = useState(undefined)
+  const [originalSentenceInputNode, setOriginalSentenceInputNode] = useState<React.RefObject<HTMLTextAreaElement | null> | undefined>(undefined)
   const [isLoadingLastSentences, setLoadingStateLastSentences] = useState(true)
   const [isFlipping, setFlippingState] = useState(false)
-  const [flippedSentence, setFlippedSentence] = useState(undefined)
-  const [errorMessage, setErrorMessage] = useState(undefined)
+  const [flippedSentence, setFlippedSentence] = useState<Sentence | undefined>(undefined)
+  const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined)
 
-  const refInputNode = useCallback((inputNode) => {
+  const refInputNode = useCallback((inputNode: React.RefObject<HTMLTextAreaElement | null>) => {
     setOriginalSentenceInputNode(inputNode)
   }, [])
 
-  const originalSentenceChangedAction = useCallback((value) => setOriginalSentence(value), [])
+  const originalSentenceChangedAction = useCallback((value: string) => setOriginalSentence(value), [])
   const flipAction = useCallback(() => {
     setFlippingState(true)
 
-    flip(originalSentence).then((data) => {
+    flip(originalSentence).then((data: Sentence) => {
       setOriginalSentence('')
 
       if (flippedSentence !== undefined) setLastSentences([flippedSentence, ...lastSentences].slice(0, MAX_SENTENCE_COUNT))
       setFlippedSentence(data)
 
-      originalSentenceInputNode.current.focus()
-    }).catch(({ error }) => {
+      originalSentenceInputNode?.current?.focus()
+    }).catch(({ error }: { error: string }) => {
       setErrorMessage(error)
     }).finally(() => {
       setFlippingState(false)
@@ -120,7 +126,7 @@ const App = () => {
   }, [originalSentence, originalSentenceInputNode, lastSentences, flippedSentence])
 
   useEffect(() => {
-    getLastSentences().then((data) => {
+    getLastSentences().then((data: Sentence[]) => {
       setErrorMessage(undefined)
       setLastSentences(data.slice(0, MAX_SENTENCE_COUNT))
     }).catch(() => {

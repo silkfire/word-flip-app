@@ -1,4 +1,6 @@
-export default {
+import { Style } from 'javascript-time-ago'
+
+const style: Style = {
   round: 'floor',
   labels: ['tiny'],
   steps: [
@@ -22,3 +24,5 @@ export default {
     }
   ],
 }
+
+export default style
