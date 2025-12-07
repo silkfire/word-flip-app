@@ -1,28 +1,5 @@
-import { memo, MouseEvent } from 'react'
-import styled from 'styled-components'
-
-const $Button = styled.div<{ $disabled?: boolean }>`
-  font-family: 'Open Sans', sans-serif;
-  font-optical-sizing: auto;
-  font-variation-settings: "wdth" 100;
-
-  background-color: #f2625a;
-  transition: all 0.25s;
-  text-align: center;
-  color: #fff;
-  padding: 7px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  float: right;
-  user-select: none;
-
-  ${({ $disabled }) => (!$disabled && `
-    &:hover {
-      background-color: #dd483f;
-      cursor: pointer;
-    }
-  `) || 'background-color: #c3c3c3;'}
-`
+import { memo, MouseEvent } from 'react';
+import clsx from 'clsx';
 
 interface ButtonProps {
   onClick: (e: MouseEvent<HTMLDivElement>) => void;
@@ -31,18 +8,31 @@ interface ButtonProps {
   className?: string;
 }
 
-function Button({
-  onClick, disabled, text, className,
-}: ButtonProps) {
+function Button({ onClick, disabled, text, className = '' }: ButtonProps) {
   const onClickAction = (e: MouseEvent<HTMLDivElement>) => {
-    if (!disabled) onClick(e)
-  }
+    if (!disabled) onClick(e);
+  };
 
   return (
-    <$Button $disabled={disabled} onClick={onClickAction} className={className}>{text}</$Button>
-  )
+    <div
+      className={clsx(
+        'float-right p-[7px] text-center font-open-sans tracking-wider text-white uppercase transition-all duration-250 select-none',
+        disabled
+          ? 'bg-gray-medium'
+          : 'bg-red-coral hover:cursor-pointer hover:bg-red-dark',
+        className,
+      )}
+      onClick={onClickAction}
+    >
+      {text}
+    </div>
+  );
 }
 
-export default memo(Button, (prevProps, nextProps) => prevProps.disabled === nextProps.disabled
-                                                   && prevProps.onClick === nextProps.onClick
-                                                   && prevProps.text === nextProps.text)
+export default memo(
+  Button,
+  (prevProps, nextProps) =>
+    prevProps.disabled === nextProps.disabled &&
+    prevProps.onClick === nextProps.onClick &&
+    prevProps.text === nextProps.text,
+);

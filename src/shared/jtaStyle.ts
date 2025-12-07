@@ -1,28 +1,28 @@
-import { Style } from 'javascript-time-ago'
+import { Style } from 'javascript-time-ago';
 
 const style: Style = {
   round: 'floor',
   labels: ['tiny'],
   steps: [
     {
-      formatAs: 'now'
+      formatAs: 'now',
     },
     {
-      formatAs: 'minute'
+      formatAs: 'minute',
     },
     {
-      formatAs: 'hour'
+      formatAs: 'hour',
     },
     {
-      formatAs: 'day'
+      formatAs: 'day',
     },
     {
-      formatAs: 'month'
+      formatAs: 'month',
     },
     {
-      formatAs: 'year'
-    }
+      formatAs: 'year',
+    },
   ],
-}
+};
 
-export default style
+export default style;

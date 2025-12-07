@@ -1,5 +1,6 @@
 import { defineConfig, createLogger, type LogOptions } from 'vite'
 import react from '@vitejs/plugin-react-swc'
+import tailwindcss from '@tailwindcss/vite'
 import { ValidateEnv } from '@julr/vite-plugin-validate-env'
 import { fileURLToPath } from 'url'
 
@@ -20,6 +21,7 @@ export default defineConfig(({ mode }) => {
     customLogger: logger,
     plugins: [
       react(),
+      tailwindcss(),
       ValidateEnv({
         configFile: './src/env'
       })

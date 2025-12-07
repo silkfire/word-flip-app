@@ -1,25 +1,4 @@
-import { useEffect, useRef, useCallback, ChangeEvent } from 'react'
-import styled from 'styled-components'
-
-const $OriginalSentence = styled.textarea`
-  resize: none;
-  outline: none;
-  -webkit-appearance: none;
-
-  width: 100%;
-
-  font-family: Arial, Helvetica, sans-serif;
-  padding: 5px;
-  border: 1px solid #eaeaea;
-
-  &::placeholder {
-    color: #c7c7c7;
-  }
-
-  @media only screen and (min-width: 48em) {
-    margin: 50px auto 0;
-  }
-`
+import { useEffect, useRef, useCallback, ChangeEvent } from 'react';
 
 interface OriginalSentenceProps {
   value: string;
@@ -27,22 +6,32 @@ interface OriginalSentenceProps {
   refInputNode: (node: React.RefObject<HTMLTextAreaElement | null>) => void;
 }
 
-export default function OriginalSentence({ value, onChangeAction, refInputNode }: OriginalSentenceProps) {
-  const onChangeActionWrapper = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
-    onChangeAction(e.target.value)
-  }, [onChangeAction])
+export default function OriginalSentence({
+  value,
+  onChangeAction,
+  refInputNode,
+}: OriginalSentenceProps) {
+  const onChangeActionWrapper = useCallback(
+    (e: ChangeEvent<HTMLTextAreaElement>) => {
+      onChangeAction(e.target.value);
+    },
+    [onChangeAction],
+  );
 
-  const inputNode = useRef<HTMLTextAreaElement>(null)
+  const inputNode = useRef<HTMLTextAreaElement>(null);
 
-  useEffect(() => refInputNode(inputNode), [refInputNode])
+  useEffect(() => refInputNode(inputNode), [refInputNode]);
 
   return (
-    <$OriginalSentence id="original-sentence"
-                       rows={10}
-                       autoFocus
-                       placeholder="Type a sentence here"
-                       value={value}
-                       onChange={onChangeActionWrapper}
-                       ref={inputNode} />
-  )
+    <textarea
+      id="original-sentence"
+      className="w-full resize-none appearance-none border border-gray-pale p-[5px] font-arial placeholder-gray-light outline-none md:mx-auto md:mt-[50px]"
+      rows={10}
+      autoFocus
+      placeholder="Type a sentence here"
+      value={value}
+      onChange={onChangeActionWrapper}
+      ref={inputNode}
+    />
+  );
 }

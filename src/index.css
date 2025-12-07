@@ -1,0 +1,60 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-gray-silver: #bdbdbd;
+  --color-light-cream: #fff7e7;
+  --color-blue-sky: #669df9;
+  --color-gray-medium: #c3c3c3;
+  --color-red-coral: #f2625a;
+  --color-red-dark: #dd483f;
+  --color-gray-pale: #eaeaea;
+  --color-gray-light: #c7c7c7;
+  --color-gray-neutral: #d4d4d4;
+  --color-gray-warm: #f0edea;
+  --color-blue-pastel: #a6c3ff;
+  --color-blue-ice: #edf0fb;
+  --color-blue-mist: #f2f4ff;
+  --color-red-crimson: #d80000;
+  --color-blue-royal: #5a80ea;
+
+  --font-arial: 'Arial', sans-serif;
+
+  --font-open-sans: 'Open Sans', sans-serif;
+  --font-open-sans--font-weight: 400; 
+  --font-open-sans--font-variation-settings: "wdth" 100; 
+
+  --font-lato: 'Lato', sans-serif;
+  --font-lato--font-weight: 400;
+
+  --font-inter: 'Inter', sans-serif;
+  --font-inter--font-weight: 400; 
+
+  --animate-loader1: loader1 0.6s infinite;
+  --animate-loader2: loader2 0.6s infinite;
+  --animate-loader3: loader3 0.6s infinite;
+
+  @keyframes loader1 {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  @keyframes loader2 {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(24px, 0);
+    }
+  }
+  @keyframes loader3 {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+}

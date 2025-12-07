@@ -1,23 +1,14 @@
-import { memo } from 'react'
-import styled from 'styled-components'
-
-const $ErrorMessage = styled.div`
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  font-optical-sizing: auto;
-  color: #d80000;
-`
+import { memo } from 'react';
 
 interface ErrorMessageProps {
   message?: string;
-  className?: string;
 }
 
-function ErrorMessage({ message, className }: ErrorMessageProps) {
-  return (
-    <$ErrorMessage className={className}>{message}</$ErrorMessage>
-  )
+function ErrorMessage({ message }: ErrorMessageProps) {
+  return <div className="font-inter text-sm text-red-crimson">{message}</div>;
 }
 
-export default memo(ErrorMessage,
-  (prevProps, nextProps) => prevProps.message === nextProps.message)
+export default memo(
+  ErrorMessage,
+  (prevProps, nextProps) => prevProps.message === nextProps.message,
+);

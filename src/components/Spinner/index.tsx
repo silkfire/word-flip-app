@@ -1,19 +1,17 @@
-import { memo } from 'react'
-import styled from 'styled-components'
+import { memo } from 'react';
+import clsx from 'clsx';
 
-import bgImage from './spinner.svg'
-
-const $Spinner = styled.div`
-  background-image: url("${bgImage}");
-  background-size: 45px;
-  width: 45px;
-  height: 45px;
-`
+import bgImage from './spinner.svg';
 
 interface SpinnerProps {
   className?: string;
 }
 
-const Spinner = ({ className }: SpinnerProps) => <$Spinner className={className} />
+const Spinner = ({ className = '' }: SpinnerProps) => (
+  <div
+    className={clsx('h-[45px] w-[45px] bg-[length:45px]', className)}
+    style={{ backgroundImage: `url("${bgImage}")` }}
+  />
+);
 
-export default memo(Spinner, () => true)
+export default memo(Spinner, () => true);

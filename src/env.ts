@@ -1,4 +1,4 @@
-import { defineConfig, Schema } from '@julr/vite-plugin-validate-env'
+import { defineConfig, Schema } from '@julr/vite-plugin-validate-env';
 
 export default defineConfig({
   validator: 'builtin',
@@ -7,4 +7,4 @@ export default defineConfig({
     PORT: Schema.number.optional(),
     HOST: Schema.string.optional({ format: 'host' }),
   },
-})
+});

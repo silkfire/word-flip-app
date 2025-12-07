@@ -1,0 +1,1 @@
+Use only Bun as the package manager; do not use npm.
