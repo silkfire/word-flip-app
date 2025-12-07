@@ -4,6 +4,7 @@ import clsx from 'clsx';
 
 import ReactTimeAgo from 'react-time-ago';
 import jtaStyle from '@/shared/jtaStyle';
+import { DATE_FORMAT_VERBOSE } from '@/shared/constants';
 
 interface Sentence {
   id: string;
@@ -27,23 +28,23 @@ function LastSentences({ sentences }: LastSentencesProps) {
       {sentences.map((s) => (
         <div
           key={s.id}
-          className="border-b border-gray-neutral px-2.5 py-3 text-left text-[0.9rem] last:border-b-0 md:border-gray-warm md:px-0 md:py-[15px]"
+          className="flex items-center border-b border-gray-neutral px-2.5 py-[12px] text-left text-[0.9rem] last:border-b-0 md:block md:border-gray-warm md:px-0 md:py-[15px]"
         >
           <ReactTimeAgo
             className={clsx(
-              'float-right ml-[14px] text-[90%] text-gray-silver duration-200',
-              'md:relative md:float-none md:mb-[6px] md:ml-0 md:inline-block',
+              'order-last ml-auto text-[90%] text-gray-silver duration-200',
+              'md:relative md:mb-[6px] md:ml-0 md:inline-block',
               "md:before:absolute md:before:-z-10 md:before:mx-0.5 md:before:my-1 md:before:block md:before:h-[15px] md:before:w-[calc(100%+2px)] md:before:-skew-y-6 md:before:bg-light-cream md:before:duration-200 md:before:content-['']",
-              'md:hover:mx-[-4px] md:hover:mb-[6px] md:hover:cursor-help md:hover:border-r-4 md:hover:border-transparent md:hover:text-white',
-              'md:hover:before:left-[-50%] md:hover:before:mx-[calc(50%-3px)] md:hover:before:h-[20px] md:hover:before:w-[calc(100%+6px)] md:hover:before:skew-y-0 md:hover:before:bg-blue-sky',
+              'md:hover:mx-[-4px] md:hover:mb-[6px] md:hover:cursor-help md:hover:text-white',
+              'md:hover:before:left-[-50%] md:hover:before:mx-[calc(50%-5px)] md:hover:before:my-0 md:hover:before:h-[calc(100%)] md:hover:before:w-[calc(100%+10px)] md:hover:before:skew-y-0 md:hover:before:bg-blue-sky',
             )}
             date={new Date(s.created)}
             formatVerboseDate={() =>
-              format(new Date(s.created), 'yyyy-MM-dd hh:mm:ss xxx')
+              format(new Date(s.created), DATE_FORMAT_VERBOSE)
             }
             timeStyle={jtaStyle}
           />
-          <div>{s.value}</div>
+          <div className="leading-4">{s.value}</div>
         </div>
       ))}
     </div>

@@ -1,10 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import clsx from 'clsx';
 
-import { FadeWrapper } from '@/shared/styles';
-
 import { flip, getLastSentences } from '@/shared/api';
 
+import FadeWrapper from '../FadeWrapper';
 import OriginalSentence from '../OriginalSentence';
 import FlipButton from '../Button';
 import FlipSentenceSpinner from '../Spinner';
@@ -98,11 +97,8 @@ const App = () => {
           refInputNode={refInputNode}
         />
 
-        <div className="relative overflow-hidden">
-          <FadeWrapper
-            isHidden={errorMessage === undefined}
-            className="float-left mx-2 mt-[22px] mb-0"
-          >
+        <div className="mt-2 flex items-center">
+          <FadeWrapper isHidden={errorMessage === undefined} className="">
             <ErrorMessage message={errorMessage} />
           </FadeWrapper>
 
@@ -113,15 +109,15 @@ const App = () => {
             <FlipSentenceSpinner />
           </FadeWrapper>
 
-          <FadeWrapper isHidden={isFlipping} className="mt-3">
+          <FadeWrapper isHidden={isFlipping} className="ml-auto">
             <FlipButton
               text="Flip"
               onClick={flipAction}
-              disabled={
+              isDisabled={
                 originalSentence.trim().length === 0 ||
                 errorMessage !== undefined
               }
-              className="w-[80px]"
+              className="ml-auto w-[80px]"
             />
           </FadeWrapper>
         </div>

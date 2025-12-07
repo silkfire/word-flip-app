@@ -7,11 +7,7 @@ interface FadeWrapperProps {
   className?: string;
 }
 
-export const FadeWrapper = ({
-  isHidden,
-  children,
-  className = '',
-}: FadeWrapperProps) => {
+export default ({ isHidden, children, className = '' }: FadeWrapperProps) => {
   return (
     <div
       className={clsx(
