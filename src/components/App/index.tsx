@@ -134,7 +134,7 @@ const App = () => {
                 originalSentence.trim().length === 0 ||
                 errorMessage !== undefined
               }
-              className="ml-auto w-[80px]"
+              className="ml-auto w-[80px] rounded-sm"
             />
           </FadeWrapper>
         </div>

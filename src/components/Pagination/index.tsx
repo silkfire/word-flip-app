@@ -121,7 +121,7 @@ function Pagination({
       <li
         className={clsx(
           'flex h-8 w-8 items-center justify-center rounded-full hover:cursor-pointer hover:bg-gray-200',
-          currentPage === 1 && 'pointer-events-none opacity-50',
+          currentPage === 1 && 'pointer-events-none opacity-30',
         )}
         onClick={onPrevious}
       >
@@ -176,7 +176,7 @@ function Pagination({
       <li
         className={clsx(
           'flex h-8 w-8 items-center justify-center rounded-full hover:cursor-pointer hover:bg-gray-200',
-          currentPage === lastPage && 'pointer-events-none opacity-50',
+          currentPage === lastPage && 'pointer-events-none opacity-30',
         )}
         onClick={onNext}
       >

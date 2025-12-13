@@ -16,30 +16,33 @@ function LastSentences({ sentences }: LastSentencesProps) {
   return (
     <div
       className={clsx(
-        'mx-auto mt-2 font-lato duration-300 md:px-1 md:pb-2',
-        sentences && sentences.length > 0 ? 'opacity-100' : 'opacity-0',
+        'mx-auto mt-6 flex max-w-3xl flex-col gap-3 px-3 pb-12 font-lato duration-500 md:px-1',
+        sentences && sentences.length > 0
+          ? 'translate-y-0 opacity-100'
+          : 'translate-y-4 opacity-0',
       )}
     >
       {sentences.map((s) => (
         <div
           key={s.id}
-          className="flex items-center border-b border-gray-neutral px-2.5 py-[12px] text-left text-[0.9rem] last:border-b-0 md:block md:border-gray-warm md:px-0 md:py-[15px]"
+          className="group relative rounded-sm border border-gray-neutral bg-white px-1.5 py-3 transition-all duration-200 hover:border-blue-royal hover:shadow-md sm:pl-3 md:border-gray-200"
         >
-          <ReactTimeAgo
-            className={clsx(
-              'order-last ml-auto text-[90%] text-gray-silver duration-200',
-              'md:relative md:mb-[6px] md:ml-0 md:inline-block',
-              "md:before:absolute md:before:-z-10 md:before:mx-0.5 md:before:my-1 md:before:block md:before:h-[15px] md:before:w-[calc(100%+2px)] md:before:-skew-y-6 md:before:bg-light-cream md:before:duration-200 md:before:content-['']",
-              'md:hover:mx-[-4px] md:hover:mb-[6px] md:hover:cursor-help md:hover:text-white',
-              'md:hover:before:left-[-50%] md:hover:before:mx-[calc(50%-5px)] md:hover:before:my-0 md:hover:before:h-[calc(100%)] md:hover:before:w-[calc(100%+10px)] md:hover:before:skew-y-0 md:hover:before:bg-blue-sky',
-            )}
-            date={new Date(s.created)}
-            formatVerboseDate={() =>
-              format(new Date(s.created), DATE_FORMAT_VERBOSE)
-            }
-            timeStyle={jtaStyle}
-          />
-          <div className="leading-4">{s.value}</div>
+          <div className="flex gap-1 sm:items-baseline sm:justify-between sm:gap-4">
+            <div className="order-3 text-sm text-gray-400 sm:order-none md:text-[15px] group-hover:md:text-gray-900">
+              {s.value}
+            </div>
+            <div className="order-2 pr-1 text-center text-(length:--text-xs) leading-5 text-gray-pale sm:order-none sm:hidden">
+              ·
+            </div>
+            <ReactTimeAgo
+              className="order-1 cursor-default pr-1 pl-1 text-center text-(length:--text-xs) leading-5 text-gray-400 sm:order-none group-hover:md:text-blue-royal"
+              date={new Date(s.created)}
+              formatVerboseDate={() =>
+                format(new Date(s.created), DATE_FORMAT_VERBOSE)
+              }
+              timeStyle={jtaStyle}
+            />
+          </div>
         </div>
       ))}
     </div>

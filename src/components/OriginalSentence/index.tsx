@@ -25,10 +25,10 @@ export default function OriginalSentence({
   return (
     <textarea
       id="original-sentence"
-      className="w-full resize-none appearance-none border border-gray-pale p-[5px] font-arial placeholder-gray-light outline-none md:mx-auto md:mt-[50px]"
+      className="w-full resize-none appearance-none rounded-sm border border-gray-pale p-[5px] font-arial placeholder-gray-light transition-colors duration-200 outline-none focus:border-blue-sky-pastel focus:sm:shadow-sm md:mx-auto md:mt-[50px]"
       rows={10}
       autoFocus
-      placeholder="Type a sentence here"
+      placeholder="Type a sentence to flip..."
       value={value}
       onChange={onChangeActionWrapper}
       ref={inputNode}
