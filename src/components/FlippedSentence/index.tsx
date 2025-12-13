@@ -5,24 +5,18 @@ import clsx from 'clsx';
 import ReactTimeAgo from 'react-time-ago';
 import jtaStyle from '@/shared/jtaStyle';
 import { DATE_FORMAT_VERBOSE } from '@/shared/constants';
-
-interface Sentence {
-  id: string;
-  value: string;
-  created: string;
-}
+import { Sentence } from '@/shared/api';
 
 interface FlippedSentenceProps {
-  sentence?: Sentence;
+  sentence: Sentence | null | undefined;
   className?: string;
 }
 
 function FlippedSentence({ sentence, className = '' }: FlippedSentenceProps) {
-  const { id, value, created } = sentence || {};
   let createdTimestamp;
 
-  if (id !== undefined && created !== undefined) {
-    const createdDateTime = new Date(created);
+  if (sentence) {
+    const createdDateTime = new Date(sentence.created);
 
     createdTimestamp = (
       <ReactTimeAgo
@@ -37,20 +31,21 @@ function FlippedSentence({ sentence, className = '' }: FlippedSentenceProps) {
   return (
     <div
       className={clsx(
-        'border-b-2 border-blue-pastel bg-blue-ice px-2 py-5 text-left font-lato text-base leading-6',
+        'border-b-2 border-blue-pastel bg-blue-ice px-2 py-2 text-left font-lato text-base leading-6 md:py-5',
         'flex md:border-r md:border-blue-pastel md:bg-blue-mist md:px-3',
         className,
       )}
     >
-      <div>{value}</div>
-      {createdTimestamp}
+      {sentence && (
+        <>
+          <div>{sentence.value}</div>
+          {createdTimestamp}
+        </>
+      )}
     </div>
   );
 }
 
 export default memo(FlippedSentence, (prevProps, nextProps) => {
-  if (nextProps.sentence === undefined) return true;
-  if (prevProps.sentence === undefined) return false;
-
-  return prevProps.sentence.id === nextProps.sentence.id;
+  return prevProps.sentence?.value === nextProps.sentence?.value;
 });

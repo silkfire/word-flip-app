@@ -1,7 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import clsx from 'clsx';
 
-import { flip, getLastSentences } from '@/shared/api';
+import {
+  PaginatedResult,
+  Sentence,
+  flip,
+  getLastSentences,
+} from '@/shared/api';
 
 import FadeWrapper from '../FadeWrapper';
 import OriginalSentence from '../OriginalSentence';
@@ -10,27 +15,22 @@ import FlipSentenceSpinner from '../Spinner';
 import ErrorMessage from '../ErrorMessage';
 import FlippedSentence from '../FlippedSentence';
 import LastSentencesLoader from '../Loader';
+import Pagination from '../Pagination';
 import LastSentences from '../LastSentences';
 
-const MAX_SENTENCE_COUNT = 10;
-
-interface Sentence {
-  id: string;
-  value: string;
-  created: string;
-}
-
 const App = () => {
-  const [lastSentences, setLastSentences] = useState<Sentence[]>([]);
+  const [lastSentences, setLastSentences] =
+    useState<PaginatedResult<Sentence> | null>(null);
+  const [currentPage, setCurrentPage] = useState<number | undefined>(undefined);
   const [originalSentence, setOriginalSentence] = useState('');
   const [originalSentenceInputNode, setOriginalSentenceInputNode] = useState<
     React.RefObject<HTMLTextAreaElement | null> | undefined
   >(undefined);
   const [isLoadingLastSentences, setLoadingStateLastSentences] = useState(true);
   const [isFlipping, setFlippingState] = useState(false);
-  const [flippedSentence, setFlippedSentence] = useState<Sentence | undefined>(
-    undefined,
-  );
+  const [flippedSentence, setFlippedSentence] = useState<
+    Sentence | null | undefined
+  >(undefined);
   const [errorMessage, setErrorMessage] = useState<string | undefined>(
     undefined,
   );
@@ -49,17 +49,16 @@ const App = () => {
   const flipAction = useCallback(() => {
     setFlippingState(true);
 
-    flip(originalSentence)
-      .then((data: Sentence) => {
+    flip(originalSentence, currentPage)
+      .then((data) => {
         setOriginalSentence('');
 
-        if (flippedSentence !== undefined)
-          setLastSentences(
-            [flippedSentence, ...lastSentences].slice(0, MAX_SENTENCE_COUNT),
-          );
-        setFlippedSentence(data);
+        if (data) {
+          setLastSentences(data.lastSentences);
+          setFlippedSentence(data.flippedSentence);
 
-        originalSentenceInputNode?.current?.focus();
+          originalSentenceInputNode?.current?.focus();
+        }
       })
       .catch(({ error }: { error: string }) => {
         setErrorMessage(error);
@@ -72,16 +71,34 @@ const App = () => {
     originalSentenceInputNode,
     lastSentences,
     flippedSentence,
+    currentPage,
   ]);
+
+  const onPageChange = useCallback((page: number) => {
+    setLoadingStateLastSentences(true);
+
+    getLastSentences(page)
+      .then((data) => {
+        setLastSentences(data);
+        setCurrentPage(page);
+      })
+      .catch((e) => {
+        console.error('Error fetching last sentences:', e);
+      })
+      .finally(() => {
+        setLoadingStateLastSentences(false);
+      });
+  }, []);
 
   useEffect(() => {
     getLastSentences()
-      .then((data: Sentence[]) => {
+      .then((data) => {
         setErrorMessage(undefined);
-        setLastSentences(data.slice(0, MAX_SENTENCE_COUNT));
+        setLastSentences(data);
       })
-      .catch(() => {
+      .catch((e) => {
         setErrorMessage('The WordFlip API service is currently offline.');
+        console.error('Error fetching last sentences:', e);
       })
       .finally(() => {
         setLoadingStateLastSentences(false);
@@ -89,7 +106,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className="mx-auto w-full md:w-[590px]">
+    <div className="mx-auto w-full pb-5 md:w-[590px] md:pb-20">
       <div className="px-1 pt-1 pb-0">
         <OriginalSentence
           value={originalSentence}
@@ -125,7 +142,7 @@ const App = () => {
         <div
           className={clsx(
             'overflow-hidden',
-            flippedSentence !== undefined ? 'h-auto' : 'h-0',
+            flippedSentence ? 'h-auto' : 'h-0',
           )}
         >
           <FlippedSentence
@@ -148,9 +165,17 @@ const App = () => {
           <LastSentencesLoader color="#5a80ea" />
         </FadeWrapper>
         <LastSentences
-          sentences={lastSentences}
-          flippedSentenceId={flippedSentence && flippedSentence.id}
+          sentences={lastSentences?.items || []}
+          flippedSentenceId={flippedSentence?.id}
         />
+        {lastSentences && (
+          <Pagination
+            currentPage={currentPage || 1}
+            totalCount={lastSentences.totalCount}
+            pageSize={lastSentences.pageSize}
+            onPageChange={onPageChange}
+          />
+        )}
       </div>
     </div>
   );

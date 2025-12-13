@@ -5,23 +5,18 @@ import clsx from 'clsx';
 import ReactTimeAgo from 'react-time-ago';
 import jtaStyle from '@/shared/jtaStyle';
 import { DATE_FORMAT_VERBOSE } from '@/shared/constants';
-
-interface Sentence {
-  id: string;
-  value: string;
-  created: string;
-}
+import { Sentence } from '@/shared/api';
 
 interface LastSentencesProps {
   sentences: Sentence[];
-  flippedSentenceId?: string;
+  flippedSentenceId?: number;
 }
 
 function LastSentences({ sentences }: LastSentencesProps) {
   return (
     <div
       className={clsx(
-        'mx-auto mt-2 font-lato duration-300 md:px-1',
+        'mx-auto mt-2 font-lato duration-300 md:px-1 md:pb-2',
         sentences && sentences.length > 0 ? 'opacity-100' : 'opacity-0',
       )}
     >
@@ -51,9 +46,4 @@ function LastSentences({ sentences }: LastSentencesProps) {
   );
 }
 
-export default memo(LastSentences, (prevProps, nextProps) => {
-  if (nextProps.sentences.length === 0) return true;
-  if (prevProps.sentences.length === 0) return false;
-
-  return prevProps.flippedSentenceId === nextProps.flippedSentenceId;
-});
+export default memo(LastSentences);
