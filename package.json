@@ -45,7 +45,6 @@
     "prettier-plugin-tailwindcss": "^0.7.2",
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3",
-    "vite": "^7.2.7",
-    "vite-plugin-mkcert": "^1.17.9"
+    "vite": "^7.2.7"
   }
 }

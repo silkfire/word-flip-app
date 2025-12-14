@@ -1,5 +1,5 @@
 import { defineConfig, createLogger, type LogOptions } from 'vite'
-import mkcert from 'vite-plugin-mkcert'
+// import mkcert from 'vite-plugin-mkcert'
 import react from '@vitejs/plugin-react-swc'
 import tailwindcss from '@tailwindcss/vite'
 import { ValidateEnv } from '@julr/vite-plugin-validate-env'

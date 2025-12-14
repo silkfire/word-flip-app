@@ -12,8 +12,6 @@ $ git clone https://github.com/silkfire/WordFlip.Api.git
 $ git clone https://github.com/silkfire/word-flip-app.git
 ```
 
-The default address to the API from the app server container is `http://api:8080` but this can be tailored to suit your particular requirements in the `docker-compose.yml` file by changing the `VITE_API_URL` environment variable. 
-
 Run the Composer to build the images of the web API, database and the client, respectively:
 
 ```
@@ -27,7 +25,7 @@ $ docker-compose -f word-flip-app/docker-compose.yml up
 
 It might be a good idea to wait around 20 seconds so that the database gets the necessary time to start up properly. 
 
-The application is ready to be run. The default port is `3000` but this too can be adjusted as required in the Compose file by setting the environment variable `PORT`to a value of your choice.
+The application is ready to be run at the address `http://localhost:3000`. The default port is `3000` but this can be adjusted if needed in the Compose file by setting the environment variable `PORT`to a value of your choice.
 
 To stop the service, run the following command:
 
