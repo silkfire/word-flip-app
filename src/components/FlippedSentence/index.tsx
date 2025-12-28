@@ -32,8 +32,8 @@ function FlippedSentence({ sentence, className = '' }: FlippedSentenceProps) {
     <div className="px-2 md:px-0">
       <div
         className={clsx(
-          'rounded-sm border border-blue-pastel bg-blue-ice px-2 py-2 text-left font-lato text-blue-900',
-          'flex text-base leading-6 font-[15px] md:border-r md:border-blue-pastel md:bg-blue-mist md:px-3 md:py-3',
+          'rounded-sm border border-blue-pastel bg-blue-ice px-2 py-2 text-left font-noto text-blue-900',
+          'flex text-sm leading-6 md:border-r md:border-blue-pastel md:bg-blue-mist md:px-3 md:py-3',
           className,
         )}
       >

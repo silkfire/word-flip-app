@@ -24,8 +24,9 @@
   --font-open-sans--font-weight: 400; 
   --font-open-sans--font-variation-settings: "wdth" 100; 
 
-  --font-lato: 'Lato', sans-serif;
-  --font-lato--font-weight: 400;
+  --font-noto: 'Noto Sans', sans-serif;
+  --font-noto--font-weight: 400;
+  --font-noto--font-variation-settings: "wdth" 100; 
 
   --font-inter: 'Inter', sans-serif;
   --font-inter--font-weight: 400; 
